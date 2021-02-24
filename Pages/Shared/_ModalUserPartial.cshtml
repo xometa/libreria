@@ -1,0 +1,108 @@
+@model RosaMaríaBookstore.Pages.Users.EmployedModel;
+@{
+    int idUser = Model.Usuario.Id;
+    String image = "/images/users/";
+    String type = "";
+    if (Model.Usuario.IdempleadoNavigation != null)
+    {
+        type = Model.Usuario.IdempleadoNavigation.IdpersonaNavigation.Tipo;
+    }
+}
+
+@if (idUser != 0)
+{
+    <input class="form-control" asp-for="Usuario.Id" hidden>
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="col-md-6">
+    <div class="form-group px-3">
+        <label asp-for="Usuario.Usuario1" class="font-weight-bold">Usuario<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <span class="uil-user-plus"></span>
+                </div>
+            </div>
+            <input type="text" asp-for="Usuario.Usuario1" class="form-control" placeholder="Nombre del usuario">
+        </div>
+        <span asp-validation-for="Usuario.Usuario1" class="text-danger"></span>
+    </div>
+    <div class="form-group px-3 pt-2">
+        <label asp-for="Usuario.Contrasena" class="font-weight-bold">Contraseña<span
+                class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <span class="uil-lock-alt"></span>
+                </div>
+            </div>
+            <input type="password" asp-for="Usuario.Contrasena" class="form-control"
+                placeholder="Contraseña del usuario">
+        </div>
+        <span asp-validation-for="Usuario.Contrasena" class="text-danger"></span>
+    </div>
+    <div class="form-group px-3 pt-2">
+        <label asp-for="Usuario.Correo" class="font-weight-bold">Correo</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <span class="uil-envelope-alt"></span>
+                </div>
+            </div>
+            <input type="text" asp-for="Usuario.Correo" class="form-control"
+                placeholder="Correo para recuperación de cuenta">
+        </div>
+        <span asp-validation-for="Usuario.Correo" class="text-danger"></span>
+    </div>
+    <div class="form-group px-3">
+        <label class="font-weight-bold">Rol<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <span class="uil-user-exclamation"></span>
+                </div>
+            </div>
+            <select class="custom-select form-control" asp-for="Usuario.Rol" required>
+                @if (idUser > 0 && type.Equals("Administrador") && !String.IsNullOrEmpty(type))
+                {
+                    <option value="Administrador">Administrador</option>
+                }
+                else
+                {
+                    <option value=" ">--- Seleccionar cargo---</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Empleado">Empleado</option>
+                }
+            </select>
+        </div>
+        <span asp-validation-for="Usuario.Rol" class="text-danger"></span>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label asp-for="Usuario.Archivo" class="font-weight-bold">Imagen</label>
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" asp-for="Usuario.Archivo" class="custom-file-input">
+                <label class="custom-file-label">Búscar imagen</label>
+            </div>
+        </div>
+        <span asp-validation-for="Usuario.Archivo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="font-weight-bold">VistaPrevia</label><br>
+        <div class="col text-center">
+            @if (Model.Usuario.IdimagenNavigation != null)
+            {
+                image += Model.Usuario.IdimagenNavigation.Nombre;
+            }
+            else
+            {
+                image = "/images/not-image.png";
+            }
+            <img src="@image" id="imageview" alt="image" class="img-fluid avatar-xl rounded-circle img-thumbnail"
+                width="200" />
+        </div>
+    </div>
+</div>;

@@ -1,0 +1,104 @@
+@model RosaMaríaBookstore.Pages.Payments.PaymentsModel;
+@using RosaMaríaBookstore.Models;
+@{
+    Venta sale;
+    int size = Model.Sales.Count;
+    string nameClient = "";
+    //para el encabezado
+    decimal totalE = 0, priceE = 0, subTotalE = 0, totalFE = 0;
+    double ivaE = 0;
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (size == 0)
+{
+    <tr>
+        <td colspan="5" class="text-center">
+            No se han encontrado registros
+        </td>
+    </tr>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    sale = Model.Sales[i];
+    totalE = 0;
+    priceE = 0;
+    subTotalE = 0;
+    totalFE = 0;
+    ivaE = 0;
+    //obteniendo el nombre del cliente
+    if (sale.IdclienteNavigation.Institucion.Count > 0)
+    {
+        foreach (var c in sale.IdclienteNavigation.Institucion)
+        {
+            if (c.Idrepresentante == sale.Idcliente)
+            {
+                nameClient = c.Nombre + " / " + sale.IdclienteNavigation.Fullname();
+            }
+        }
+    }
+    else
+    {
+        if (sale.IdclienteNavigation.Nombre.Equals("Público general") &&
+                    sale.IdclienteNavigation.Apellido.Equals("Público general") &&
+                    String.IsNullOrEmpty(sale.IdclienteNavigation.Dui))
+        {
+            nameClient = sale.IdclienteNavigation.Nombre;
+        }
+        else
+        {
+            nameClient = sale.IdclienteNavigation.Fullname();
+        }
+    }
+    //obteniendo el total de la venta para el encabezado
+    foreach (var p in sale.Detalleventa)
+    {
+        foreach (var dc in p.IdproductoNavigation.IdcompraNavigation.Detallecompra)
+        {
+            if (dc.Idcompra == p.IdproductoNavigation.Idcompra && p.IdproductoNavigation.IdproductoNavigation.Id == dc.Idproducto)
+            {
+                priceE = dc.Precio;
+                priceE = (priceE + (priceE * (p.IdproductoNavigation.Margen / 100)));
+                subTotalE = p.Cantidad * Convert.ToDecimal(priceE.ToString("0.00"));
+                totalE += subTotalE;
+            }
+        }
+    }
+    ivaE = Convert.ToDouble(totalE) * 0.13;
+    totalFE = totalE + Convert.ToDecimal(ivaE);
+    <tr>
+        <td>
+            @sale.Documento
+        </td>
+        <td>
+            @nameClient
+        </td>
+        <td>
+            @sale.Fecha.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @sale.Tipo
+        </td>
+        <td>
+            $ @totalFE.ToString("0.00")
+        </td>
+        <td>
+            @if (sale.Estado == (sbyte)1)
+            {
+                <h4><span class="badge badge-danger">No cancelada</span></h4>
+            }
+            else
+            {
+                <h4><span class="badge badge-success">Cancelada</span></h4>
+            }
+        </td>
+        <td>
+            <button type="button" class="btn btn-success font-weight-bold btn-rounded ml-1" data-idsale="@sale.Id"><i
+                    class="mdi mdi-plus"></i> Registrar
+                Abono</button>
+        </td>
+    </tr>
+}

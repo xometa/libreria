@@ -1,0 +1,22 @@
+@model RosaMaríaBookstore.Pages.Users.PositionsModel;
+@{
+    int id = Model.Cargo.Id;
+}
+@if (id != 0)
+{
+    <input class="form-control" asp-for="Cargo.Id" hidden>
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group px-3">
+    <label asp-for="Cargo.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-users-alt"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Cargo.Nombre" class="form-control" placeholder="Nombre del cargo">
+    </div>
+    <span asp-validation-for="Cargo.Nombre" class="text-danger"></span>
+</div>

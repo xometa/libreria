@@ -1,0 +1,51 @@
+@model RosaMaríaBookstore.Pages.Queries.Products.NotSalesModel;
+@using RosaMaríaBookstore.Models;
+@{
+    string fmt = "dd/MM/yyyy";
+    decimal salePrice = 0, shoppingPrice = 0;
+
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (Model.PricesList.Count == 0)
+{
+    <tr>
+        <td colspan="6" class="text-center">
+            No hay registros
+        </td>
+    </tr>
+    return;
+}
+@foreach (var price in Model.PricesList)
+{
+    foreach (var item in price.IdcompraNavigation.Detallecompra)
+    {
+        if (item.Idcompra == price.Idcompra && price.Idproducto == item.Idproducto)
+        {
+            shoppingPrice = item.Precio;
+            salePrice = item.Precio + (item.Precio * (price.Margen / 100));
+            break;
+        }
+    }
+    <tr>
+        <td>@price.Fecha.ToString(fmt)</td>
+        <td>$ @shoppingPrice</td>
+        <td>$ @salePrice.ToString("0.00")</td>
+        <td>@price.Margen%</td>
+        <td>@price.Detalleventa.Count</td>
+        <td>
+            <div>
+
+                @if (price.Estado == (sbyte)1)
+                {
+                    <span class="badge badge-success">Habilitado</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">Deshabilitado</span>
+                }
+            </div>
+        </td>
+    </tr>
+}

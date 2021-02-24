@@ -1,0 +1,40 @@
+@page
+@model RosaMaríaBookstore.Pages.Users.UserInformationModel;
+@using RosaMaríaBookstore.Models;
+@{
+    ViewData["Title"] = "Librería | Cuenta";
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Mi cuenta</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Mi cuenta</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-3 order-lg-1 order-xl-2"></div>
+    <div class="col-lg-6 order-lg-1 order-xl-2">
+        <div class="card">
+            <div class="card-body" id="user-information">
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div>
+    <div class="col-lg-3 order-lg-1 order-xl-2"></div>
+</div>
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/staff/userinformation.js"></script>
+}

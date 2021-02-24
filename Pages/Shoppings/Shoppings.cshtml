@@ -1,0 +1,295 @@
+@page
+@model RosaMaríaBookstore.Pages.Shoppings.ShoppingsModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Nueva Compra"; }
+@{
+    string cadena="";
+    var ramdon=new Random();
+    List<string> lista=new List<string>();
+    lista.Add("btn btn-primary btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-secondary btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-success btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-danger btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-warning btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-info btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-light btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-dark btn-rounded mt-1 mx-1");
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Nueva Compra</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Nueva Compra</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group text-right">
+                            <div class="btn btn-group" id="addnew">
+                                <a asp-area="" asp-page="/Providers/Providers" class="btn btn-primary btn-rounded"><span
+                                        class="uil-building"></span> Registrar Proveedor</a>
+                                <a asp-area="" asp-page="/Products/Products" class="btn btn-info btn-rounded"><span
+                                        class="uil-archive"></span> Registrar Producto</a>
+                                <a asp-area="" asp-page="/Categories/Categories"
+                                    class="btn btn-danger btn-rounded"><span class="uil-layer-group"></span> Registrar
+                                    Categoría</a>
+                                <a asp-area="" asp-page="/Trademarks/Trademarks"
+                                    class="btn btn-warning btn-rounded"><span class="uil-pricetag-alt"></span> Registrar
+                                    Marca</a>
+                            </div>
+                        </div>
+                    </div>                    
+                    <form id="formShopping" name="formShopping" class="col-lg-12" method="POST" autocomplete="off">
+                        <div class="row">
+                            <div class="col-lg-12 pb-2">
+                                <div class="border border-secondary-100 rounded">
+                                        <div class="modal-colored-header bg-dark text-center py-3">
+                                            <h4 class="modal-title">Datos de la compra</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group px-2">
+                                                        <label asp-for="Shopping.Documento" class="font-weight-bold"># documento<span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <span class="mdi mdi-file-document-box-outline"></span>
+                                                                </div>
+                                                            </div>
+                                                            <input type="text" class="form-control" asp-for="Shopping.Documento">
+                                                        </div>
+                                                        <span asp-validation-for="Shopping.Documento" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group px-2">
+                                                        <label class="font-weight-bold">Proveedor<span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <span class="uil-building"></span>
+                                                                </div>
+                                                            </div>
+                                                            <select class="custom-select form-control" required asp-for="Shopping.Idproveedor">
+                                                                <option value=" ">--- Seleccionar proveedor ---</option>
+                                                                @foreach (var pv in Model.ProvidersList)
+                                                                {
+                                                                    cadena=pv.Nombre+" / "+pv.IdrepresentanteNavigation.Fullname();
+                                                                    <option value="@pv.Id">@cadena</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="Shopping.Idproveedor" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group px-2">
+                                                        <label asp-for="Shopping.Fecha" class="font-weight-bold">Fecha<span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <span class="mdi mdi-calendar-month"></span>
+                                                                </div>
+                                                            </div>
+                                                            <input type="Date" class="form-control" asp-for="Shopping.Fecha">
+                                                        </div>
+                                                        <span asp-validation-for="Shopping.Fecha" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group px-2">
+                                                        <label asp-for="Shopping.Tipo" class="font-weight-bold">Tipo de compra<span class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <span class=" uil-info-circle"></span>
+                                                                </div>
+                                                            </div>
+                                                            <select class="custom-select form-control" required asp-for="Shopping.Tipo">
+                                                                <option value=" ">--- Seleccionar tipo ---</option>
+                                                                <option value="Contado">Contado</option>
+                                                                <option value="Crédito">Crédito</option>
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="Shopping.Tipo" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end modal-body -->
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="border border-secondary-100 rounded py-2 px-3">
+                                    <div class="row pt-2">
+                                        <div class="col-lg-9">
+                                            <h4 class="text-lg-left text-muted font-weight-bold">Detalles de Productos</h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group text-right">
+                                                <button type="button" class="btn btn-success btn-rounded" id="btn-addproducts"><span class="uil-plus"></span> Añadir
+                                                    Productos</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pb-4">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-borderless table-centered mb-0">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th>Producto</th>
+                                                                    <th>Cantidad</th>
+                                                                    <th>Precio</th>
+                                                                    <th>Total</th>
+                                                                    <th style="width: 50px;"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="data-body">
+                                                            </tbody>
+                                                        </table>
+                                                    </div> <!-- end table-responsive-->
+                                                </div>
+                                                <!-- end col -->
+
+                                                <div class="col-lg-4">
+                                                    <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                                        <h4 class="header-title mb-3">Costo total</h4>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table mb-0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Sub Total :</td>
+                                                                        <td id="subtotal">$ 0.00</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>IVA : </td>
+                                                                        <td id="iva">$ 0.00</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>Total :</th>
+                                                                        <th id="total">$ 0.00</th>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- end table-responsive -->
+                                                    </div>
+                                                </div> <!-- end col -->
+
+                                            </div> <!-- end row -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 py-3">
+                                <div class="new-footer d-flex">
+                                    <button type="button" class="btn btn-light font-weight-bold btn-rounded mr-1" id="btn-cancelshopping"><i
+                                            class="mdi mdi-close"></i> Cancelar</button>
+                                    <button type="submit" class="btn btn-dark font-weight-bold btn-rounded ml-1"><i
+                                            class="mdi mdi-content-save"></i> Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+<div id="modal-products" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-shopping">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="dark-header-modalLabel">Listado de productos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 px-4">
+                        <p class="alert-info py-2 px-2 rounded"><span class="font-weight-bold">Indicaciones :</span> seleccione el/los producto a comprar,
+                            también podra buscarlos por categorías, y filtrarlos por paginas</p>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row px-3 pb-2" id="categories-container">
+                            <button type="button" class="btn btn-dark btn-rounded mt-1 mx-1" data data-category="Todo" data-idcategory="0">Todo</button>                                
+                            @foreach (var c in Model.categoriesList)
+                            {
+                                 int generate = ramdon.Next(0, 8);
+                                 cadena=lista[generate];
+                                <button type="button" class="@cadena" data data-category="@c.Nombre" data-idcategory="@c.Id">@c.Nombre</button>                                
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 pt-4 scroll-shopping" data-simplebar>
+                        <div id="products-list" class="row px-3">
+                            <!-- home products list-->
+                            <!-- end products list-->
+                        </div>
+                    </div>
+                    <div class="col-lg-12 px-4 py-2">
+                        <div id="create-pagination" class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@*template de products*@
+<template id="empty">
+    <tr>
+        <td colspan="5" class="text-center">Seleccionar productos</td>
+    </tr>
+</template>
+<template id="rowProduct">
+    <tr>
+        <td>
+            <img src="" alt="imagen" title="imagen" class="rounded mr-3" height="64" />
+            <p class="m-0 d-inline-block align-middle font-16">
+                Cuaderno #1
+            </p>
+        </td>
+        <td>
+            <input type="number" min="1" value="55" class="form-control" placeholder="Cantidad" style="width: 90px;">
+        </td>
+        <td>
+            <input type="text" min="1" value="0.75" class="form-control" placeholder="Precio" style="width: 90px;">
+        </td>
+        <td>
+            $ 41.25
+        </td>
+        <td>
+            <a href="javascript:void(0);" class="action-icon text-danger pointer"> <i class="mdi mdi-delete mdi-24px"></i></a>
+        </td>
+    </tr>
+</template>
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/shopping/shopping.js"></script>
+}

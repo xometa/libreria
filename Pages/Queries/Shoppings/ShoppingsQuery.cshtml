@@ -1,0 +1,137 @@
+@page
+@model RosaMaríaBookstore.Pages.Queries.Shoppings.ShoppingsQueryModel;
+@using RosaMaríaBookstore.Models;
+@{ 
+    ViewData["Title"] = "Librería | Consulta Compras"; 
+    string cadena="";
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Consulta de compras</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Consulta de compras</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Filtros de la consulta</h4>                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            @*filter*@
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Ver registros</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-server"></span>
+                                            </div>
+                                        </div>
+                                        <select id="showQuantity" class="form-control">
+                                            <option value="6" selected>6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-4">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Proveedor</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-building"></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="idprovider" name="idprovider">
+                                            <option value="">--- Seleccione un proveedor ---</option>
+                                            @foreach (var pv in Model.ProvidersList)
+                                            {
+                                                cadena=pv.Nombre+" / "+pv.IdrepresentanteNavigation.Fullname();
+                                                <option value="@pv.Id">@cadena</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Fecha</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="mdi mdi-calendar-month"></span>
+                                            </div>
+                                        </div>
+                                        <input type="date" class="form-control" id="date" name="date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Tipo de compra</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-info-circle"></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="typeShopping" name="typeShopping">
+                                            <option value="">--- Seleccione un tipo ---</option>
+                                            <option value="Contado">Contado</option>
+                                            <option value="Crédito">Crédito</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                                    
+                            <div class="col-lg-2 text-center">
+                                <div class="form-group px-3 pt-3">
+                                    <button type="button" class="btn btn-dark font-weight-bold btn-rounded" id="btnfilter"><i class="uil-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                            @*end filter*@                            
+                        </div>
+                    </div>
+                    <div class="py-4 col-lg-12">
+                        <div class="row" id="shoppings-list">
+                            <!-- home shoppings list -->
+                            <div class="col-lg-12">
+                                <div class="accordion custom-accordion pointer" id="custom-accordion-one">
+                                </div>
+                            </div> <!-- end col-->
+                            <!-- end shoppings list-->
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/queries/shoppingsquery.js"></script>
+}

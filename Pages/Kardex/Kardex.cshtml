@@ -1,0 +1,147 @@
+@page
+@model RosaMaríaBookstore.Pages.Kardex.KardexModel;
+@using RosaMaríaBookstore.Models;
+@{
+    ViewData["Title"] = "Librería | Kardex";
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Kardex de productos</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Kardex de productos</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Filtros de la consulta</h4>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Ver registros</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-server"></span>
+                                            </div>
+                                        </div>
+                                        <select id="showQuantity" class="form-control">
+                                            <option value="6" selected>6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Producto</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-layer-group"></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="idproduct" required>
+                                            <option value=" ">--- Seleccione un producto ---</option>
+                                            @foreach (var p in Model.ProductList)
+                                            {
+                                                if (p.Detallecompra.Count>0)
+                                                {
+                                                    <option value="@p.Id"> @p.Nombre</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Fecha</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-layer-group"></span>
+                                            </div>
+                                        </div>
+                                        <input type="date" class="form-control" id="dateO">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group px-3 pt-3">
+                                    <button type="button" class="btn btn-dark font-weight-bold btn-rounded" id="btnfilter"><i
+                                            class="uil-search"></i> Buscar</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-2 col-lg-12">
+                        <div class="row py-2 px-2">
+                            <div class="table-responsive" id="products-list">
+                                <!-- home products list -->
+                                <table id="scroll-horizontal-datatable-1" class="table table-centered w-100 nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center alert-secondary" colspan="4" class="align-middle">Descripción</th>
+                                            <th class="text-center alert-info" colspan="3">Compras</th>
+                                            <th class="text-center alert-success" colspan="3">Ventas</th>
+                                            <th class="text-center alert-light">Saldo</th>
+                                        </tr>
+                                        <tr class="thead-dark">
+                                            <th>N°</th>
+                                            <th>Documento</th>
+                                            <th>Fecha</th>
+                                            <th>Movimiento</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio U.</th>
+                                            <th>Costo total</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio U.</th>
+                                            <th>Costo total</th>
+                                            <th>Disponible</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data-list">
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="10">Total unidades disponibles</td>
+                                            <td id="stock"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <!-- end products list-->
+                            </div>
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/queries/kardex.js"></script>
+}

@@ -1,0 +1,154 @@
+@page
+@model RosaMaríaBookstore.Pages.Queries.Employed.WithPermissionModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Consulta de empleados"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Consulta de empleados</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Empleados con permisos de acceso</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Filtros de la consulta</h4>
+                    @*filter*@
+                    <div class="col-lg-3">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                            <div class="col-md-4">
+                                <select id="showQuantity" class="form-control">
+                                    <option value="6" selected>6</option>
+                                    <option value="12">12</option>
+                                    <option value="18">18</option>
+                                    <option value="24">24</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Empleado</strong></div>
+                            <div class="col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-search"></span>
+                                            </div>
+                                        </div>
+                                        <select id="iduser" name="iduser" class="form-control">
+                                            <option value="">--- Seleccionar empleado ---</option>
+                                            @foreach (var u in Model.UserList)
+                                            {
+                                                <option value="@u.Id">@u.IdempleadoNavigation.IdpersonaNavigation.Fullname()</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*end filter*@
+                    <div class="py-2 px-2 col-lg-9">
+                            <div class="table-responsive" id="products-list">
+                                <!-- home products list -->
+                                <table id="scroll-horizontal-datatable-1" class="table table-centered w-100 nowrap">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Cargo</th>
+                                            <th>Dui</th>
+                                            <th>Sexo</th>
+                                            <th>Fecha Nacimiento</th>
+                                            <th>Teléfono</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data-body">
+                                    </tbody>
+                                </table>
+                                <!-- end products list-->
+                            </div>
+                    </div><!-- end col-->
+                    <div class="py-2 px-2 col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="dropdown float-right">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <!-- item-->
+                                        <a asp-area="" asp-page="/Users/Permissions" class="dropdown-item">Ir a permisos</a>
+                                    </div>
+                                </div>
+                                <h4 class="header-title mb-2">Listado de permisos</h4>
+
+                                <div data-simplebar style="max-height: 298px;">
+                                    <div class="timeline-alt pb-0">
+                                        <div class="row" id="permissions-list">
+                                        </div>
+                                    </div>
+                                    <!-- end timeline -->
+                                </div> <!-- end slimscroll -->
+                            </div>
+                            <!-- end card-body -->
+                        </div>
+                        <!-- end card-->
+                    </div>
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+<template id='permission'>
+    <div class="col-lg-12">
+        <div class="card overflow-hidden border border-radius">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="toll-free-box text-center">
+                            <h4> <i></i> Nombre</h4>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div>
+    </div>
+</template>
+<template id="message">
+    <div class="col-md-12">
+        <div class="alert alert-info text-center font-weight-bold">
+            <h5>No se encontrarón registros</h5>
+        </div>
+    </div>
+</template>
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/queries/permissionquery.js"></script>
+}

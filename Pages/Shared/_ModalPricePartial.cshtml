@@ -1,0 +1,46 @@
+@model RosaMaríaBookstore.Pages.Products.ProductsModel;
+@using RosaMaríaBookstore.Props;
+@{
+  LastPurchasePrice lastPurchasePrice=Model.LastPurchasePriceList[0];
+}
+@if(Model.Preciosproducto.Idcompra!=0 && Model.Preciosproducto.Idproducto!=0){
+    <input class="form-control" asp-for="Preciosproducto.Idcompra" hidden>
+    <input class="form-control" asp-for="Preciosproducto.Idproducto" hidden>
+}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="font-weight-bold">último precio de compra</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="mdi mdi-cash-usd"></span>
+                    </div>
+                </div>
+                <input onkeypress="return false" type="text" class="form-control"
+                    placeholder="0.00" value="@lastPurchasePrice.PrecioCompra">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label asp-for="Preciosproducto.Margen" class="font-weight-bold">Margen<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        %
+                    </div>
+                </div>
+                <input type="number" min="0" max="100" class="form-control" asp-for="Preciosproducto.Margen">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label class="font-weight-bold">Nuevo precio</label>
+            <h4 class="text-info text-left" id="shoppingNewPrice">
+                $ 0.00
+                </h6>
+        </div>
+    </div>
+</div>

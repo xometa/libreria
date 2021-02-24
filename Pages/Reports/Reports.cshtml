@@ -1,0 +1,626 @@
+@page
+@model RosaMaríaBookstore.Pages.Reports.ReportsModel;
+@using RosaMaríaBookstore.Models;
+@{
+    ViewData["Title"] = "Librería | Listado de reportes";
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Reportes</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Reportes</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+
+
+    <div class="tasks col-lg-4">
+        <h5 class="mt-0 task-header">Productos</h5>
+
+        <div id="task-list-one" class="task-list-items">
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title rounded"><i class="uil-archive h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Kardex de productos</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title rounded"><i class="uil-archive h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Productos (General)</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a asp-area="" asp-page="/Reports/ProductsReport" target="_blank"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title rounded"><i class="uil-archive h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Productos agotados</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title rounded"><i class="uil-archive h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Productos por marca</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title rounded"><i class="uil-archive h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Productos por categoría</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a asp-area="" asp-page="/Queries/Products/NotSales" class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title rounded"><i class="uil-archive h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Productos sin precios de venta</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+
+        </div> <!-- end company-list-1-->
+    </div>
+
+
+    <div class="tasks col-lg-4">
+        <h5 class="mt-0 task-header">Compras</h5>
+
+        <div id="task-list-two" class="task-list-items">
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-info rounded"><i class="uil-cart h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Compras (Generales)</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a asp-area="" asp-page="/Queries/Shoppings/ShoppingsQuery"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-info rounded"><i class="uil-cart h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Compras del mes</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-info rounded"><i class="uil-cart h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Compras del año</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-info rounded"><i class="uil-cart h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Compras por proveedor</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-info rounded"><i class="uil-cart h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Compras por empleado</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+        </div> <!-- end company-list-2-->
+    </div>
+
+
+    <div class="tasks col-lg-4">
+        <h5 class="mt-0 task-header">Ventas</h5>
+        <div id="task-list-three" class="task-list-items">
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-success rounded"><i
+                                        class="uil-shopping-cart-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Ventas (Generales)</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-success rounded"><i
+                                        class="uil-shopping-cart-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Ventas del mes</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-success rounded"><i
+                                        class="uil-shopping-cart-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Ventas del año</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-success rounded"><i
+                                        class="uil-shopping-cart-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Ventas por clientes</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-success rounded"><i
+                                        class="uil-shopping-cart-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Ventas por empleado</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-success rounded"><i
+                                        class="uil-shopping-cart-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Ventas pendientes de pago</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+
+        </div> <!-- end company-list-3-->
+    </div>
+
+    <div class="tasks col-lg-4">
+        <h5 class="mt-0 task-header">Clientes</h5>
+        <div id="task-list-four" class="task-list-items">
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-warning rounded"><i class="uil-user-square h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Clientes generales</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-warning rounded"><i class="uil-user-square h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Clientes institucionales</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+        </div> <!-- end company-list-4-->
+    </div>
+
+        <div class="tasks col-lg-4">
+        <h5 class="mt-0 task-header">Proveedores</h5>
+        <div id="task-list-four" class="task-list-items">
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-light rounded"><i class="uil-building h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Proveedores</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-light rounded"><i class="uil-building h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Proveedores con números de contacto</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+        </div> <!-- end company-list-4-->
+    </div>
+
+    <div class="tasks col-lg-4">
+        <h5 class="mt-0 task-header">Usuarios</h5>
+        <div id="task-list-four" class="task-list-items">
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-secondary rounded"><i class="uil-users-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Empleados (con o sin usuario)</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+            <!-- Query Item -->
+            <div class="card mb-1 shadow-none border">
+                <div class="p-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar-sm">
+                                <span class="avatar-title bg-secondary rounded"><i class="uil-users-alt h3"></i></span>
+                            </div>
+                        </div>
+                        <div class="col pl-0">
+                            <span class="text-muted font-weight-bold">Permisos</span>
+                        </div>
+                        <div class="col-auto">
+                            <!-- Button -->
+                            <a href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted">
+                                <i class="mdi mdi-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Query Item End -->
+
+        </div> <!-- end company-list-4-->
+    </div>
+
+</div>

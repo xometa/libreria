@@ -1,0 +1,145 @@
+@page
+@model RosaMaríaBookstore.Pages.Queries.Employed.ShoppingsUserModel;
+@using RosaMaríaBookstore.Models;
+@{ 
+    ViewData["Title"] = "Librería | Consulta Ventas"; 
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Consulta de ventas</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Consulta de ventas por empleado</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Filtros de la consulta</h4>                    
+                    <div class="col-lg-12">
+                        <div class="row">
+                            @*filter*@
+                            <div class="col-lg-2">
+                                <div class="form-group ">
+                                    <label class="font-weight-bold">Ver registros</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-server"></span>
+                                            </div>
+                                        </div>
+                                        <select id="showQuantity" class="form-control">
+                                            <option value="6" selected>6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Empleado</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-users-alt "></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="iduser" name="iduser">
+                                            <option value="">--- Seleccione un empleado ---</option>
+                                            @foreach (var u in Model.UserList)
+                                            {
+                                                <option value="@u.Id">@u.IdempleadoNavigation.IdpersonaNavigation.Fullname() </option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Mes</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-calender"></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="month" name="month">
+                                            <option value="">--- Seleccione un mes ---</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Deciembre</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <label class="font-weight-bold">Año actual</label>
+                                <div class="mt-2">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="yes" name="current" class="custom-control-input">
+                                        <label class="custom-control-label" for="yes">Si</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="not" name="current" class="custom-control-input">
+                                        <label class="custom-control-label" for="not">No</label>
+                                    </div>
+                                </div>
+                            </div>                    
+                            <div class="col-lg-2 text-center">
+                                <div class="form-group px-3 pt-3">
+                                    <button type="button" class="btn btn-dark font-weight-bold btn-rounded" id="btnfilter"><i class="uil-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                            @*end filter*@                            
+                        </div>
+                    </div>
+                    <div class="py-4 col-lg-12">
+                        <div class="row">
+                            <!-- home shoppings list -->
+                            <div class="col-lg-12">
+                                <div class="accordion custom-accordion pointer" id="custom-accordion-one">
+                                </div>
+                            </div> <!-- end col-->
+                            <!-- end shoppings list-->
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/queries/shoppingsuserquery.js"></script>
+}

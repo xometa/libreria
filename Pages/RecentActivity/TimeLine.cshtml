@@ -1,0 +1,99 @@
+@page
+@model RosaMaríaBookstore.Pages.RecentActivity.TimeLineModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Bitácora"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Bitácora</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Bitácora</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="formBinnacle" name="formBinnacle" method="POST" autocomplete="off">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group px-3">
+                                            <label class="font-weight-bold">Empleado/Usuario</label>
+                                            <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <span class="uil-user-square"></span>
+                                                        </div>
+                                                    </div>
+                                                    <select class="custom-select form-control" id="employed" name="employed">
+                                                        <option value="">--- Seleccione un empleado ---</option>
+                                                        @foreach(var u in Model.UsersList){
+							                                <option value="@u.Id">@u.IdempleadoNavigation.IdpersonaNavigation.Fullname() </option>
+							                            }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group px-3">
+                                            <label class="font-weight-bold">Fecha inicio</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="mdi mdi-calendar-month"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="date" class="form-control" id="home-date" name="home-date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group px-3">
+                                            <label class="font-weight-bold">Fecha fin</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="mdi mdi-calendar-month"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="date" id="end-date" name="end-date" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="form-group px-3 pt-3">
+                                            <button type="submit" class="btn btn-dark font-weight-bold btn-rounded"><i class="uil-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+                    </div><!-- end col -->
+                    <div data-simplebar class="py-2 col-lg-12 scroll-shopping pt-2">
+                        <div class="timeline" id="listBinnacle">
+
+                        </div>
+                        <!-- end timeline -->
+                    </div> <!-- end col -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/timeline/timeline.js"></script>
+}

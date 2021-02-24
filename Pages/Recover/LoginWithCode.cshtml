@@ -1,0 +1,41 @@
+@page
+@model RosaMaríaBookstore.Pages.Recover.LoginWithCodeModel;
+@using RosaMaríaBookstore.Models;
+@{
+Layout="_Login";
+ViewData["Title"] = "Código de verificación";
+}
+
+<!-- title-->
+<h4 class="mt-0">Verificar código</h4>
+<p class="text-muted mb-4">Ingresa el código que fue enviado a tu correó electrónico; si no se encuentra en la bandeja de mensajes recibidos, debe estar en spam.</p>
+
+<!-- form -->
+<form id="fromCode" name="fromCode" method="POST" autocomplete="off">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if(Model.Message!=null && Model.Message!="") {
+        <div class="form-group font-weight-bold text-danger">
+            @Model.Message
+        </div>
+    }
+    <div class="form-group mb-3">
+        <label asp-for="Code">Código</label>
+        <input class="form-control" type="text" asp-for="Code" placeholder="Ingresa tu código">
+    </div>
+    <span asp-validation-for="Code" class="text-danger"></span>
+    <div class="form-group mb-0 text-center">
+        <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-lock-reset"></i> Iniciar sesión
+        </button>
+    </div>
+
+</form>
+<!-- end form-->
+
+<!-- Footer-->
+<footer class="footer footer-alt">
+    <p class="text-muted">Volver a <a asp-area="" asp-page="/Login/Login" class="text-muted ml-1"><b>Inicio de sesión</b></a></p>
+</footer>
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+}

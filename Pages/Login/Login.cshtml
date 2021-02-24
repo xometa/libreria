@@ -1,0 +1,65 @@
+@page
+@model RosaMaríaBookstore.Pages.Login.LoginModel;
+@using RosaMaríaBookstore.Models;
+@{
+Layout="_Login";
+ViewData["Title"] = "Inicio de sesión";
+}
+<!-- title-->
+<h4 class="mt-0">Iniciar sesión</h4>
+<p class="text-muted mb-4">Ingresa tu usuario y contraseña, para poder acceder a tu cuenta.</p>
+
+<!-- form -->
+<form method="POST" autocomplete="off" id="formLogin" name="formLogin">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if(Model.Message!=null && Model.Message!="") {
+        <div class="form-group font-weight-bold text-danger">
+            @Model.Message
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="UserAccount.Usuario1">Usuario</label>
+        <input class="form-control" type="text" asp-for="UserAccount.Usuario1" placeholder="Ingresa tu usuario">
+    </div>
+    <div class="form-group">
+        <a asp-area="" asp-page="/Recover/Recoverpassword" class="text-muted float-right"><small>Olvidaste tu contraseña?</small></a>
+        <label asp-for="UserAccount.Contrasena">Contraseña</label>
+        <input class="form-control" type="password" asp-for="UserAccount.Contrasena" placeholder="Ingresa tu contraseña">
+    </div>
+    <div class="form-group mb-0 text-center">
+        <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i> Iniciar sesión </button>
+    </div>@*
+    <!-- social-->
+    <div class="text-center mt-4">
+        <p class="text-muted font-16">Ingresar con</p>
+        <ul class="social-list list-inline mt-3">
+            <li class="list-inline-item">
+                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                        class="mdi mdi-facebook"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                        class="mdi mdi-google"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                        class="mdi mdi-twitter"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                        class="mdi mdi-github-circle"></i></a>
+            </li>
+        </ul>
+    </div>*@
+</form>
+<!-- end form-->
+
+<!-- Footer-->
+@*Challenge*<footer class="footer footer-alt">
+    <p class="text-muted">No tienes una cuenta? <a href="pages-register-2.html" class="text-muted ml-1"><b>Registrate</b></a></p>
+</footer>*@
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/query/query.js"></script>
+}

@@ -1,0 +1,62 @@
+@model RosaMaríaBookstore.Pages.Queries.Products.ProductsQueryModel;
+@using RosaMaríaBookstore.Props;
+
+@{
+    int size = Model.ProductsList.Count;
+    ProductsQuery pq;
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (size == 0)
+{
+    <tr>
+        <td colspan="6" class="text-center">
+            No se han encontrado registros
+        </td>
+    </tr>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    pq = Model.ProductsList[i];
+    <tr>
+        <td>@pq.Nombre </td>
+        <td>
+            @if (pq.Descripcion == null)
+            {
+                Output.Write("No hay descripción");
+            }
+            else
+            {
+                Output.Write(pq.Descripcion);
+            }
+        </td>
+        <td>
+
+            @if (pq.Marca != null)
+            {
+                Output.Write(pq.Marca);
+            }
+            else
+            {
+                Output.Write("Sin registro");
+            }
+        </td>
+        <td>@pq.Categoria</td>
+        <td>
+            @pq.Existencia
+        </td>
+        <td>
+            @if (pq.Estado == (sbyte)1)
+            {
+                <span class="badge badge-success">Habilitado</span>
+            }
+            else
+            {
+                <span class="badge badge-danger">Deshabilitado</span>
+            }
+        </td>
+    </tr>
+}

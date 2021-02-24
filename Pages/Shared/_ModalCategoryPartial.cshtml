@@ -1,0 +1,22 @@
+@model RosaMaríaBookstore.Pages.Categories.CategoriesModel;
+@{
+    int id = Model.Categoria.Id;
+}
+@if (id != 0) 
+{
+    <input class="form-control" asp-for="Categoria.Id" hidden>
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group px-3">
+    <label asp-for="Categoria.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-layer-group"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Categoria.Nombre" class="form-control" placeholder="Nombre de la categoría">
+    </div>
+    <span asp-validation-for="Categoria.Nombre" class="text-danger"></span>
+</div>

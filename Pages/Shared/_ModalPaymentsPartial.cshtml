@@ -1,0 +1,28 @@
+@model RosaMaríaBookstore.Pages.Sales.SalesListModel;
+@using RosaMaríaBookstore.Models;
+@using System.Globalization
+
+@{
+    Pago payment;
+}
+
+<div id="price-filters" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize" data-restante='@Model.restante.ToString("0.00")'
+    data-status="@Model.Status">
+</div>
+@if (Model.PaymentsList.Count == 0)
+{
+    <tr>
+        <td colspan="2" class="text-center">
+            No se han realizado abonos
+        </td>
+    </tr>
+}
+@for (int i = 0; i < Model.PaymentsList.Count; i++)
+{
+    payment = Model.PaymentsList[i];
+    <tr>
+        <td>$ @payment.IdabonoNavigation.Monto.ToString("0.00")</td>
+        <td>@payment.IdabonoNavigation.Fechaabono.ToString("dddd dd MMMM yyyy",CultureInfo.CreateSpecificCulture("es-ES"))</td>
+    </tr>
+}

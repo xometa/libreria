@@ -1,0 +1,78 @@
+@model RosaMaríaBookstore.Pages.Queries.Employed.WithoutUserModel;
+@using RosaMaríaBookstore.Models;
+
+@{
+    int size = Model.EmplployedList.Count;
+    Empleado e;
+    string fmt = "dd/MM/yyyy";
+    DateTime date;
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (size == 0)
+{
+    <tr>
+        <td colspan="7" class="text-center">
+            No se han encontrado registros
+        </td>
+    </tr>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    e = Model.EmplployedList[i];
+    if (e.Usuario.Count == 0)
+    {
+        <tr>
+            <td>@e.IdpersonaNavigation.Fullname() </td>
+            <td>
+                @if (e.IdcargoNavigation != null)
+                {
+                    Output.Write(e.IdcargoNavigation.Nombre);
+                }
+                else
+                {
+                    Output.Write("Sin cargo");
+                }
+            </td>
+            <td>
+                @if (e.IdpersonaNavigation.Dui != null)
+                {
+                    Output.Write(e.IdpersonaNavigation.Dui);
+                }
+                else
+                {
+                    Output.Write("Sin registro");
+                }
+            </td>
+            <td>@e.Sexo</td>
+            <td>
+                @if (e.Fechanacimiento != null)
+                {
+                    date = (DateTime)e.Fechanacimiento;
+                    Output.Write(date.ToString(fmt));
+                }
+                else
+                {
+                    Output.Write("No hay registro");
+                }
+            </td>
+            <td>
+
+                @if (e.IdtelefonoNavigation != null)
+                {
+                    Output.Write(e.IdtelefonoNavigation.Telefono1);
+                }
+                else
+                {
+                    Output.Write("No hay registro");
+                }
+            </td>
+            <td>
+                <span class="badge badge-info">Sin usuario</span>
+            </td>
+        </tr>
+    }
+}

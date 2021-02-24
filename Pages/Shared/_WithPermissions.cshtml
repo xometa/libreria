@@ -1,0 +1,75 @@
+@model RosaMaríaBookstore.Pages.Queries.Employed.WithPermissionModel;
+@using RosaMaríaBookstore.Models;
+
+@{
+    int size = Model.UserList.Count;
+    Usuario e;
+    string fmt = "dd/MM/yyyy";
+    DateTime date;
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (size == 0)
+{
+    <tr>
+        <td colspan="6" class="text-center">
+            No se han encontrado registros
+        </td>
+    </tr>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    e = Model.UserList[i];
+    if (e.Detallepermisosusuario.Count > 0)
+    {
+        <tr data-iduser="@e.Id" class="pointer">
+            <td>@e.IdempleadoNavigation.IdpersonaNavigation.Fullname() </td>
+            <td>
+                @if (e.IdempleadoNavigation.IdcargoNavigation != null)
+                {
+                    Output.Write(e.IdempleadoNavigation.IdcargoNavigation.Nombre);
+                }
+                else
+                {
+                    Output.Write("Sin cargo");
+                }
+            </td>
+            <td>
+                @if (e.IdempleadoNavigation.IdpersonaNavigation.Dui != null)
+                {
+                    Output.Write(e.IdempleadoNavigation.IdpersonaNavigation.Dui);
+                }
+                else
+                {
+                    Output.Write("Sin registro");
+                }
+            </td>
+            <td>@e.IdempleadoNavigation.Sexo</td>
+            <td>
+                @if (e.IdempleadoNavigation.Fechanacimiento != null)
+                {
+                    date = (DateTime)e.IdempleadoNavigation.Fechanacimiento;
+                    Output.Write(date.ToString(fmt));
+                }
+                else
+                {
+                    Output.Write("No hay registro");
+                }
+            </td>
+            <td>
+
+                @if (e.IdempleadoNavigation.IdtelefonoNavigation != null)
+                {
+                    Output.Write(e.IdempleadoNavigation.IdtelefonoNavigation.Telefono1);
+                }
+                else
+                {
+                    Output.Write("No hay registro");
+                }
+            </td>
+        </tr>
+    }
+}

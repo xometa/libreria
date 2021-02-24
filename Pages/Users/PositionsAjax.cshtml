@@ -1,0 +1,50 @@
+@page
+@model RosaMaríaBookstore.Pages.Users.PositionsAjaxModel;
+@using RosaMaríaBookstore.Models;
+@{ Layout=null; }
+
+@{
+    int size=Model.PositionsList.Count;
+    Cargo position;
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (size==0)
+{
+    <div class="col-md-12">
+        <div class="alert alert-info text-center font-weight-bold">
+            <h5>No hay registros</h5>
+        </div>
+    </div>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    position=Model.PositionsList[i];
+
+<div class="col-md-6 col-lg-2">
+    <div class="card d-block border border-radius">
+        <div class="card-body">
+            <h5 class="card-title">@position.Nombre</h5>
+        </div>
+        <div class="card-body p-0 m-0 d-flex align-items-end">
+            <p class="card-text"></p>
+        </div> @* end card-body*@
+        <div class="card-footer text-muted p-y m-0">
+            <div class="row pt-2" id="actions">
+                <div class="btn-group mb-2 col-lg-12">
+                    <button type="button" class="btn btn-warning btn-rounded"><span class="mdi mdi-border-color mdi-18px" id="edit"
+                             data-idposition="@position.Id"></span></button>
+                    <button type="button" class="btn btn-danger btn-rounded"><span class="mdi mdi-delete mdi-18px" id="delete"
+                             data-idposition="@position.Id"></span></button>
+                </div>
+            </div>
+        </div>
+        @*end card-footer*@
+    </div> @*end card*@
+</div>@*end col*@
+}

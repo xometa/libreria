@@ -1,0 +1,359 @@
+@page
+@model RosaMaríaBookstore.Pages.Clients.ClientsModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Clientes"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Clientes</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Clientes</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-2">
+                        <button type="button" class="btn btn-success font-weight-bold btn-rounded" id="btn-addclient"><i
+                                class="mdi mdi-plus"></i> Nuevo
+                            cliente</button>
+                    </div>
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Listado de clientes</h4>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-tabs nav-bordered mb-3">
+                                    <li class="nav-item">
+                                        <a href="#clientsG" data-toggle="tab" aria-expanded="false"
+                                            class="nav-link active">
+                                            General
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#clientsI" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                            Instituciones
+                                        </a>
+                                    </li>
+                                </ul> <!-- end nav-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content col-lg-12">
+
+                        <div class="tab-pane show active" id="clientsG">
+                            <div class="row py-2 px-2">
+                                @*filter*@
+                                <div class="col-lg-3">
+                                    <div class="row">
+                                        <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                                            <div class="col-md-4">
+                                                <select id="showQuantity" class="form-control">
+                                                    <option value="6" selected>6</option>
+                                                    <option value="12">12</option>
+                                                    <option value="18">18</option>
+                                                    <option value="24">24</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                        </div>
+                                        <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5"></div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-2 pt-1"><strong>Búscar:</strong></div>
+                                        <div class="col-lg-10">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <span class="uil-search"></span>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="searchData">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*end filter*@
+                                <div class="table-responsive" id="clientsG-list">
+                                    <!-- home clients list -->
+                                    <table id="scroll-horizontal-datatable-0" class="table table-centered w-100 nowrap">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Nombres</th>
+                                                <th>Apellidos</th>
+                                                <th>DUI</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cg-body">
+                                            
+                                        </tbody>
+                                    </table>
+                                    <!-- end clients list-->
+                                </div>
+                            </div><!-- end row-->
+
+                            <div class="card-footer">
+                                <div class="row" id="create-pagination">
+                                    
+                                </div><!-- end row-->
+                            </div><!-- end car-footer-->
+                        </div> <!-- end clientsG-->
+
+                        <div class="tab-pane" id="clientsI">
+                            <div class="row py-2 px-2">
+                                @*filter*@
+                                <div class="col-lg-3">
+                                    <div class="row">
+                                        <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                                            <div class="col-md-4">
+                                                <select id="show-institution-quantity" class="form-control">
+                                                    <option value="6" selected>6</option>
+                                                    <option value="12">12</option>
+                                                    <option value="18">18</option>
+                                                    <option value="24">24</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                        </div>
+                                        <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5"></div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-2 pt-1"><strong>Búscar:</strong></div>
+                                        <div class="col-lg-10">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <span class="uil-search"></span>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="institution-searchdata">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*end filter*@
+                                <div class="table-responsive" id="clientsI-list">
+                                    <!-- home clients list -->
+                                    <table id="scroll-horizontal-datatable-1" class="table table-centered w-100 nowrap">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Nombres</th>
+                                                <th>Apellidos</th>
+                                                <th>DUI</th>
+                                                <th>Institución</th>
+                                                <th>Dirección</th>
+                                                <th>Teléfonos</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ci-body">
+                                            
+                                        </tbody>
+                                    </table>
+                                    <!-- end clients list-->
+                                </div>
+                            </div><!-- end row-->
+
+                            <div class="card-footer">
+                                <div class="row" id="institution-pagination">
+                                </div><!-- end row-->
+                            </div><!-- end car-footer-->
+                        </div> <!-- end clientsI-->
+                    </div> <!-- end tab-content-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+<!--  Modal content for clients-->
+<div class="modal fade" id="modal-client" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="tittle-modal">Nuevo Cliente</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form id="formClient" name="formClient" method="POST" autocomplete="off">
+                <div class="modal-body">
+                    <div>
+                        <div class="form-group px-3">
+                            <label asp-for="Person.Tipo" class="font-weight-bold">Tipo de cliente<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-table"></span>
+                                    </div>
+                                </div>
+                                <select class="custom-select form-control" asp-for="Person.Tipo" required>
+                                    <option value=" ">--- Seleccionar ---</option>
+                                    <option value="Público">Público en general</option>
+                                    <option value="Institución">Institución</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="Person.Apellido" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div id="data-body">
+                    <!-- form elements -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light font-weight-bold btn-rounded" id="btn-cancel"><i
+                            class="mdi mdi-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-dark font-weight-bold btn-rounded" id="btn-action"><i
+                            class="mdi mdi-content-save"></i> Guardar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--  Modal content for phone's -->
+<div class="modal fade" id="modal-phone" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="phone-title">Números de teléfono de contacto</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="py-3 px-3">
+                <form id="formPhone" name="formPhone" method="POST" autocomplete="off"
+                    class="border border-secondary-100 rounded px-2 py-2">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label asp-for="Phone.Telefono1" class="font-weight-bold">Teléfono<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-phone-pause"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Phone.Telefono1" class="form-control" placeholder="0000-0000" data-toggle="input-mask" data-mask-format="0000-0000">
+                            </div>
+                            <span asp-validation-for="Phone.Telefono1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer new-footer">
+                        <button type="button" class="btn btn-light font-weight-bold btn-rounded" id="btn-cancelphone"><i
+                                class="mdi mdi-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-dark font-weight-bold btn-rounded" id="btn-phone"><i
+                                class="mdi mdi-content-save"></i> Guardar</button>
+                    </div>
+                </form>
+                <div class="border border-secondary-100 rounded px-2 mt-3">
+                    <div class="modal-body">
+                        <label for="" class="font-weight-bold">Listado de telefonos</label>
+                        <div class="row">
+                            @*filter*@
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-md-3 pt-1"><strong>Ver</strong></div>
+                                    <div class="col-md-6">
+                                        <select id="show-phone-quantity" class="form-control">
+                                            <option value="3" selected>3</option>
+                                            <option value="6">6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 pt-1"><strong>registros</strong></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-5">
+                                <div class="row">
+                                    <div class="col-md-3 pt-1"><strong>Teléfono:</strong></div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-search"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" id="phone-searchdata" data-toggle="input-mask" data-mask-format="0000-0000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*end filter*@
+                            <div class="table-responsive col-lg-12">
+                                <table class="table table-borderless table-centered mb-0">
+                                    <thead class="alert-info">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Teléfono</th>
+                                            <th>Activo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="phone-data">
+                                        
+                                    </tbody>
+                                </table>
+                            </div> <!-- end table-responsive-->
+                        </div>
+                        <div class="row" id="phone-pagination">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Alert Modal -->
+<div id="modalDeleteClient" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-trash h1 text-danger"></i>
+                    <h4 class="mt-2" id="mtitle">Eliminar cliente</h4>
+                    <p class="mt-3" id="mtitle-delete">El registro se eliminará de manera permanente. ¿Estás seguro?</p>
+                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger my-2" id="mbtn-delete" data-dismiss="modal">Sí,
+                        eliminar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/client/client.js"></script>
+}

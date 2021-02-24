@@ -1,0 +1,152 @@
+@page
+@model RosaMaríaBookstore.Pages.Queries.Products.NotShoppingsModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Consulta de productos"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Consulta de productos</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Consulta de productos sin registro de compras</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Filtros de la consulta</h4>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Ver registros</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-server"></span>
+                                            </div>
+                                        </div>
+                                        <select id="showQuantity" class="form-control">
+                                            <option value="6" selected>6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-4">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-archive"></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <select class="custom-select form-control" id="idproduct" name="idproduct">
+                                            <option value="">--- Seleccione un producto ---</option>
+                                            @foreach (var p in Model.Products)
+                                            {
+                                                <option value="@p.Id">@p.Nombre</option>
+                                            }
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Marca</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-pricetag-alt"></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="tag" required>
+                                            <option value=" ">--- Seleccione una marca ---</option>
+                                            @foreach (var t in Model.TrademarksList)
+                                            {
+                                                <option value="@t.Nombre">@t.Nombre</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group px-3">
+                                    <label class="font-weight-bold">Categoría<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-layer-group"></span>
+                                            </div>
+                                        </div>
+                                        <select class="custom-select form-control" id="category" required>
+                                            <option value=" ">--- Seleccione una categoría ---</option>
+                                            @foreach (var c in Model.CategoriesList)
+                                            {
+                                                <option value="@c.Nombre">@c.Nombre</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group px-3 pt-3">
+                                    <button type="button" class="btn btn-dark font-weight-bold btn-rounded" id="btnfilter"><i
+                                            class="uil-search"></i> Buscar</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-2 col-lg-12">
+                        <div class="row py-2 px-2">
+                            <div class="table-responsive" id="products-list">
+                                <!-- home products list -->
+                                <table id="scroll-horizontal-datatable-1" class="table table-centered w-100 nowrap">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Marca</th>
+                                            <th>Categoría</th>
+                                            <th>Stock minímo</th>
+                                            <th>Compras</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data-body">
+                                    </tbody>
+                                </table>
+                                <!-- end products list-->
+                            </div>
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/queries/notshoppingsquery.js"></script>
+}

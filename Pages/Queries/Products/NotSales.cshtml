@@ -1,0 +1,106 @@
+@page
+@model RosaMaríaBookstore.Pages.Queries.Products.NotSalesModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Consulta de productos"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Consulta de productos</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Consulta de precios sin registros de ventas (Por producto)</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="header-title col-md-12 mt-2 mb-2">Filtros de la consulta</h4>
+                    @*filter*@
+                    <div class="col-lg-3">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                            <div class="col-md-4">
+                                <select id="showQuantity" class="form-control">
+                                    <option value="6" selected>6</option>
+                                    <option value="12">12</option>
+                                    <option value="18">18</option>
+                                    <option value="24">24</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Producto</strong></div>
+                            <div class="col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-search"></span>
+                                            </div>
+                                        </div>
+                                        <select id="idproduct" class="form-control">
+                                            <option value="">--- Seleccionar producto ---</option>
+                                            @foreach (var u in Model.Products)
+                                            {
+                                                <option value="@u.Id">@u.Nombre</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*end filter*@
+                    <div class="py-2 col-lg-12">
+                        <div class="row py-2 px-2">
+                            <div class="table-responsive" id="products-list">
+                                <!-- home products list -->
+                                <table id="scroll-horizontal-datatable-1" class="table table-centered w-100 nowrap">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Precio de compra</th>
+                                            <th>Precio de venta</th>
+                                            <th>Margen de ganancia (%)</th>
+                                            <th>Ventas</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data-body">
+                                    </tbody>
+                                </table>
+                                <!-- end products list-->
+                            </div>
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/queries/notsalesquery.js"></script>
+}

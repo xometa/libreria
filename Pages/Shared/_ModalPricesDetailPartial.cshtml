@@ -1,0 +1,56 @@
+@model RosaMaríaBookstore.Pages.Products.ProductsModel;
+@using RosaMaríaBookstore.Models;
+@{
+    string fmt = "dd/MM/yyyy";
+    decimal salePrice = 0, shoppingPrice = 0;
+
+}
+<div id="price-filters" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (Model.PricesList.Count == 0)
+{
+    <tr>
+        <td colspan="5" class="text-center">
+            No se han registrado precios para el producto
+        </td>
+    </tr> 
+    return;
+}
+@foreach (var price in Model.PricesList)
+{
+    foreach (var item in price.IdcompraNavigation.Detallecompra)
+    {
+        if (item.Idcompra == price.Idcompra && price.Idproducto == item.Idproducto)
+        {
+            shoppingPrice = item.Precio;
+            salePrice = item.Precio + (item.Precio * (price.Margen / 100));
+            break;
+        }
+    }
+    string IdPrice = "siwtch" + price.Id;
+    <tr>
+        <td>@price.Fecha.ToString(fmt)</td>
+        <td>$ @shoppingPrice</td>
+        <td>$ @salePrice.ToString("0.00")</td>
+        <td>@price.Margen%</td>
+        <td>
+            <div>
+                @if (price.Estado == 1)
+                {
+                    <input type="checkbox" id="@IdPrice" checked data-switch="success" data-idprice="@price.Id">
+                }
+                else
+                {
+                    <input type="checkbox" id="@IdPrice" data-switch="success" data-idprice="@price.Id">
+                }
+                <label for="@IdPrice" data-on-label="Si" data-off-label="No" class="mb-0 d-block"></label>
+            </div>
+        </td>
+        <td class=" table-action text-center">
+            <span class="action-icon text-danger pointer" data-idprice="@price.Id">
+                <i class=" mdi mdi-delete mdi-24px" id="delete-price"></i>
+            </span>
+        </td>
+    </tr>
+}

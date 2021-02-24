@@ -1,0 +1,292 @@
+@page
+@model RosaMaríaBookstore.Pages.Payments.PaymentsModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Abonos venta"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Nuevo abono</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Nuevo abono</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-2">
+                        <div class="border border-secondary-100 rounded">
+                            <div class="modal-colored-header bg-dark text-center py-2">
+                                <h5 class="modal-title">Clientes con ventas al crédito</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="form-group px-3">
+                                            <label class="font-weight-bold">Ver registros</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-server"></span>
+                                                    </div>
+                                                </div>
+                                                <select id="showQuantity" class="form-control">
+                                                    <option value="6" selected>6</option>
+                                                    <option value="12">12</option>
+                                                    <option value="18">18</option>
+                                                    <option value="24">24</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group px-2">
+                                            <label class="font-weight-bold">Cliente<span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-user-square"></span>
+                                                    </div>
+                                                </div>
+                                                <select class="custom-select form-control" id="idclient" required>
+                                                    <option value=" ">--- Seleccionar cliente ---</option>           
+                                                    @foreach (var p in Model.ClientsList)
+                                                    {
+                                                        if (p.Nombre.Equals("Público general") && p.Apellido.Equals("Público general") &&
+                                                            String.IsNullOrEmpty(p.Dui))
+                                                        {
+                                                            <option value="@p.Id">@p.Nombre</option>
+                                                        }else{
+                                                            <option value="@p.Id">@p.Fullname()</option>
+                                                        }
+                                                    }
+                                                    @foreach (var i in Model.InstitutionsList)
+                                                    {
+                                                        <option value="@i.Idrepresentante">@i.Nombre / @i.IdrepresentanteNavigation.Fullname()</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group px-2">
+                                            <label class="font-weight-bold">Fecha inicio</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-calendar-alt"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="date" class="form-control" id="home-date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group px-2">
+                                            <label class="font-weight-bold">Fecha fin</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-calendar-alt"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="date" class="form-control" id="end-date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group px-3 pt-3">
+                                            <button type="button" class="btn btn-dark font-weight-bold btn-rounded" id="btnfilter"><i
+                                            class="uil-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end modal-body -->
+                            <div class="py-2 px-3">
+                                <h4 class="header-title col-md-12 mt-2 mb-2">Listado de ventas al crédito</h4>
+                                <div class="py-2 row">
+                                    <div class="col-lg-12">
+                                        <div class="row" id="payments-list">
+                                            <!-- home payments list -->
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-centered w-100 nowrap">
+                                                        <thead class="alert-success">
+                                                            <tr>
+                                                                <th># documento</th>
+                                                                <th>Cliente</th>
+                                                                <th>Fecha de venta</th>
+                                                                <th>Tipo de venta</th>
+                                                                <th>Total de la venta</th>
+                                                                <th>Estado de la venta</th>
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="data-body">
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div> <!-- end table-responsive-->
+                                            </div>
+                                            <!-- end col -->
+                                            <!-- end payments list-->
+                                        </div><!-- end row-->
+                                    </div>
+                                </div><!-- end col-->
+                                <div class="card-footer">
+                                    <div class="row" id="create-pagination">
+                                    </div><!-- end row-->
+                                </div><!-- end car-footer-->
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+<!--  Modal content for the Large example -->
+<div class="modal fade" id="modal-payments" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="title">Nuevo abono</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="px-3 py-3">
+                <form id="formPayment" name="formPayment" method="POST" autocomplete="off"
+                    class="border border-secondary-100 rounded px-2 py-2">
+                    <div class="modal-body">
+                        <div class="form-group px-3">
+                            <label asp-for="Payment.Monto" class="font-weight-bold">Monto a abonar $<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-usd-square"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Payment.Monto" class="form-control" placeholder="Monto a abonar para la venta">
+                            </div>
+                            <span asp-validation-for="Payment.Monto" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Payment.Fechaabono" class="font-weight-bold">Fecha<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-calendar-alt"></span>
+                                    </div>
+                                </div>
+                                <input type="date" asp-for="Payment.Fechaabono" class="form-control">
+                            </div>
+                            <span asp-validation-for="Payment.Fechaabono" class="text-danger"></span>
+                        </div>
+                    </div><!-- end modal-body -->
+                    <div class="modal-footer new-footer">
+                        <button type="button" class="btn btn-light font-weight-bold btn-rounded" id="btn-cancelPayment"><i
+                                class="mdi mdi-close"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-dark font-weight-bold btn-rounded" id="btn-addPayment"><i
+                                class="mdi mdi-content-save"></i> Guardar</button>
+                    </div><!-- end modal-footer -->
+                </form>
+                <!-- table-->
+                <div class="border border-secondary-100 rounded px-2 mt-3">
+                    <div class="modal-body">
+                        <label for="" class="font-weight-bold">Listado de abonos</label>
+                        <div class="row">
+                            @*filter*@
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-md-3 pt-1"><strong>Ver</strong></div>
+                                    <div class="col-md-6">
+                                        <select id="show-payment-quantity" class="form-control">
+                                            <option value="3" selected>3</option>
+                                            <option value="6">6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 pt-1"><strong>registros</strong></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-5">
+                                <div class="row">
+                                    <div class="col-md-3 pt-1"><strong>Fecha:</strong></div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-search"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="date" class="form-control" id="payment-searchdate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*end filter*@
+                            <div class="col-lg-12">
+                                <div class="table-responsive-sm">
+                                    <table class="table table-centered mb-0">
+                                        <thead class="font-weight-bold alert-success">
+                                            <tr>
+                                                <td>Monto $</td>
+                                                <td>Fecha de abono</td>
+                                                <td>Acciones</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="data-payments">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div id="payment-pagination" class="row">
+                                
+                                </div>
+                            </div>
+                            <div class="col-lg-12 pt-3 px-3">
+                                <div class="row font-weight-bold bg-info py-2 text-white">
+                                    <div class="col-lg-4">Total días sin pagar: <span
+                                            class="font-weight-normal" id="day">1</span></div>
+                                    <div class="col-lg-5">Última fecha de pago: <span
+                                            class="font-weight-normal" id="fechapayment">23/09/2020</span></div>
+                                    <div class="col-lg-3">Deuda total: <span class="font-weight-normal" id="restante">$ 125.25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/payment/payment.js"></script>
+}

@@ -1,0 +1,142 @@
+@page
+@model RosaMaríaBookstore.Pages.Users.EmployedAjaxModel;
+@using RosaMaríaBookstore.Models;
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = null;
+}
+@{
+    var Session = HttpContext.Session;
+    string fmt = "dd/MM/yyyy";
+    string image = "";
+    DateTime date;
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (Model.EmplployedList.Count == 0)
+{
+    <tr>
+        <td colspan="7" class="text-center">
+            No hay registros
+        </td>
+    </tr>
+    return;
+}
+@foreach (var e in Model.EmplployedList)
+{
+    <tr>
+        <td class="table-user">
+            @if (e.Imagen != null)
+            {
+                image = "/images/users/" + e.Imagen;
+            }
+            else
+            {
+                image = "/images/not-user.png";
+            }
+            <img src="@image" alt="image-user" class="mr-2 rounded-circle">
+            <p class="m-0 d-inline-block align-middle font-16">
+                @if (e.Nombre != null)
+                {
+                    Output.Write(e.Nombre);
+                }
+                else
+                {
+                    Output.Write("No se ha registrado un nombre");
+                }
+                <br>
+                <small class="mr-2">
+                    <b>
+                        @if (e.Cargo != null)
+                        {
+                            Output.Write(e.Cargo);
+                        }
+                        else
+                        {
+                            Output.Write("Sin cargo");
+                        }
+                    </b>
+                </small>
+            </p>
+        </td>
+        <td>
+            @if (e.DUI != null)
+            {
+                Output.Write(e.DUI);
+            }
+            else
+            {
+                Output.Write("Sin registro");
+            }
+        </td>
+        <td>@e.Sexo</td>
+        <td>
+            @if (e.Fechanacimiento != null)
+            {
+                date = (DateTime)e.Fechanacimiento;
+                Output.Write(date.ToString(fmt));
+            }
+            else
+            {
+                Output.Write("No hay registro");
+            }
+        </td>
+
+
+        <td>
+            @if (e.Telefono != null)
+            {
+                Output.Write(e.Telefono);
+            }
+            else
+            {
+                Output.Write("No hay registro");
+            }
+        </td>
+
+        <td>
+            @if (!e.Tipo.Equals("Administrador"))
+            {
+                if (e.IdUsuario != null)
+                {
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary btn-rounded" data-idemployed="@e.Id"><i
+                                class="mdi mdi-account-edit"></i> Modificar usuario</button>
+                        <button type="button" class="btn btn-info btn-rounded" data-idemployed="@e.Id"><i class="mdi mdi-eye"></i>
+                            Ver
+                            usuario</button>
+                    </div>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary btn-rounded" data-idemployed="@e.Id"><i
+                            class="mdi mdi-account-plus"></i>
+                        Agregar usuario</button>
+                }
+            }
+            else
+            {
+                Output.Write("Sin opciones");
+            }
+        </td>
+        <td>
+            <div class="btn-group">
+                @if (!e.Tipo.Equals("Administrador"))
+                {
+                    <button type="button" class="btn btn-warning btn-rounded" data-idemployed="@e.Id"><i
+                            class="mdi mdi-pencil"></i> </button>
+
+                    <button type="button" class="btn btn-danger btn-rounded" data-idemployed="@e.Id"><i
+                            class="mdi mdi-delete"></i> </button>
+                }
+                else
+                {
+                    Output.Write("Sin acciones");
+                }
+            </div>
+        </td>
+    </tr>
+}

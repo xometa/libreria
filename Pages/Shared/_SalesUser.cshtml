@@ -1,0 +1,232 @@
+@model RosaMaríaBookstore.Pages.Queries.Employed.SalesUserModel;
+@using RosaMaríaBookstore.Models;
+
+@{
+    int Length = Model.SaleList.Count;
+    string image = "", id = "", head = "", nameClient = "", classStyle = "",iconStyle="",totalStyle = "";
+    //para el encabezado
+    decimal totalE = 0, priceE = 0, subTotalE = 0, totalFE = 0;
+    double ivaE = 0;
+    //para el detalle
+    decimal price = 0, subTotal = 0;
+    Venta sale;
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (Length <= 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info text-center font-weight-bold">
+                <h5>No hay registros</h5>
+            </div>
+        </div>
+    </div>
+}
+@for (int i = 0; i < Length; i++)
+{
+    sale = Model.SaleList[i];
+    id = "sale" + i;
+    head = "heading" + i;
+    totalE = 0;
+    priceE = 0;
+    subTotalE = 0;
+    ivaE = 0;
+    //agregando color a la venta si es al crédito y no pagada
+    if (sale.Tipo.Equals("Crédito"))
+    {
+        if (sale.Estado == (sbyte)1)
+        {
+            classStyle = "card-header head-acordion-danger pointer";
+            iconStyle = "text-danger uil-shopping-cart-alt";
+            totalStyle = "bg-danger text-white";
+        }
+        else
+        {
+            classStyle = "card-header head-acordion-success pointer";
+            iconStyle = "text-success uil-shopping-cart-alt";
+            totalStyle = "bg-success text-white";
+        }
+    }
+    else
+    {
+        classStyle = "card-header head-acordion-success pointer";
+        iconStyle = "text-success uil-shopping-cart-alt";
+        totalStyle = "bg-success text-white";
+    }
+    //obteniendo el nombre del cliente
+    if (sale.IdclienteNavigation.Institucion.Count > 0)
+    {
+        foreach (var c in sale.IdclienteNavigation.Institucion)
+        {
+            if (c.Idrepresentante == sale.Idcliente)
+            {
+                nameClient = sale.IdclienteNavigation.Fullname() + " / " + c.Nombre;
+            }
+        }
+    }
+    else
+    {
+        if (sale.IdclienteNavigation.Nombre.Equals("Público general") &&
+                    sale.IdclienteNavigation.Apellido.Equals("Público general") &&
+                    String.IsNullOrEmpty(sale.IdclienteNavigation.Dui))
+        {
+            nameClient = sale.IdclienteNavigation.Nombre;
+        }
+        else
+        {
+            nameClient = sale.IdclienteNavigation.Fullname();
+        }
+    }
+    //obteniendo el total de la venta para el encabezado
+    foreach (var p in sale.Detalleventa)
+    {
+        foreach (var dc in p.IdproductoNavigation.IdcompraNavigation.Detallecompra)
+        {
+            if (dc.Idcompra == p.IdproductoNavigation.Idcompra && p.IdproductoNavigation.IdproductoNavigation.Id == dc.Idproducto)
+            {
+                priceE = dc.Precio;
+                priceE = (priceE + (priceE * (p.IdproductoNavigation.Margen / 100)));
+                subTotalE = p.Cantidad * Convert.ToDecimal(priceE.ToString("0.00"));
+                totalE += subTotalE;
+            }
+        }
+    }
+    ivaE = Convert.ToDouble(totalE) * 0.13;
+    totalFE = totalE + Convert.ToDecimal(ivaE);
+    <div class="card mb-0">
+        <div class="@classStyle" id="@head">
+            <h5 class="m-0">
+                <div class="custom-accordion-title d-block py-1 collapsed" data-toggle="collapse" data-target="#@id"
+                    aria-expanded="false" aria-controls="@id">
+                    <div class="row font-weight-bold">
+                        <div class="col-lg-1">
+                            @sale.Documento
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="@iconStyle"></i> @nameClient
+                        </div>
+                        <div class="col-lg-2">Fecha: <span class="font-weight-normal">
+                                @sale.Fecha.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="col-lg-2">Tipo: <span class="font-weight-normal">
+                                @sale.Tipo</span>
+                        </div>
+                        <div class="col-lg-2">Total: <span class="font-weight-normal"> $
+                                @totalFE.ToString("0.00")</span>
+                        </div>
+                        @if (sale.Tipo.Equals("Crédito"))
+                        {
+                            <div class="col-lg-2">Estado: <span class="font-weight-normal">
+                                    @if (sale.Estado == 1)
+                                    {
+                                        <span class="font-weight-normal badge badge-danger"> No cancelada</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font-weight-normal badge badge-success"> Cancelada</span>
+                                    }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </h5>
+        </div>
+
+        <div id="@id" class="collapse" aria-labelledby="@head" data-parent="#custom-accordion-one">
+            <div class="card-body">
+                <h4 class="text-lg-left text-muted font-weight-bold">Detalles de
+                    la venta</h4>
+                <div class="row">
+                    <div class="col-lg-8 pt-2">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-centered mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pr in sale.Detalleventa)
+                                    {
+                                        foreach (var dc in pr.IdproductoNavigation.IdcompraNavigation.Detallecompra)
+                                        {
+                                            if (dc.Idcompra == pr.IdproductoNavigation.Idcompra &&
+                        pr.IdproductoNavigation.IdproductoNavigation.Id == dc.Idproducto)
+                                            {
+                                                price = dc.Precio + (dc.Precio * (pr.IdproductoNavigation.Margen / 100));
+                                                break;
+                                            }
+                                        }
+                                        if (pr.IdproductoNavigation.IdproductoNavigation.IdimagenNavigation != null)
+                                        {
+                                            image = "/images/products/" +
+                        pr.IdproductoNavigation.IdproductoNavigation.IdimagenNavigation.Nombre;
+                                        }
+                                        else
+                                        {
+                                            image = "/images/not-image.png";
+                                        }
+                                        subTotal = Convert.ToDecimal(price.ToString("0.00")) * pr.Cantidad;
+
+                                        <tr>
+                                            <td>
+                                                <img src="@image" alt="imagen" title="imagen" class="rounded mr-3"
+                                                    height="64" />
+                                                <p class="m-0 d-inline-block align-middle font-16">
+                                                    @pr.IdproductoNavigation.IdproductoNavigation.Nombre
+                                                </p>
+                                            </td>
+                                            <td>
+                                                $ @price.ToString("0.00")
+                                            </td>
+                                            <td>
+                                                @pr.Cantidad
+                                            </td>
+                                            <td>
+                                                $ @subTotal
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div> <!-- end table-responsive-->
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-lg-4 pt-2">
+                        <div class="border p-3 mt-4 mt-lg-0 rounded">
+                            <h4 class="header-title mb-3">Total de la venta</h4>
+
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>Sub Total :</td>
+                                            <td>$ @totalE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>IVA (0.13) : </td>
+                                            <td>$ @ivaE.ToString("N2")</td>
+                                        </tr>
+                                        <tr class="@totalStyle">
+                                            <th>Total :</th>
+                                            <th>$ @totalFE.ToString("0.00")</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end table-responsive -->
+                        </div>
+                    </div> <!-- end col -->
+                </div>
+            </div>
+        </div>
+    </div>
+}

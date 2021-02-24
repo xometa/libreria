@@ -1,0 +1,184 @@
+@page
+@model RosaMaríaBookstore.Pages.Sales.SalesListModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Listado de ventas"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Listado de ventas</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Listado de ventas</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-2 bg-dark text-white text-center rounded">
+                        <h4 class="header-title col-md-12 mt-2 mb-2">Listado de ventas</h4>
+                    </div>
+                    <div class="col-lg-12 pt-2">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group text-right">
+                                    <div class="btn btn-group" id="addnew">
+                                        <a asp-area="" asp-page="/Sales/Sales"
+                                            class="btn btn-success btn-rounded float-right"><i class="h4 mdi mdi-plus"></i>
+                                            Nueva
+                                            venta</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @*filter*@
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                                    <div class="col-md-4">
+                                        <select id="showQuantity" class="form-control">
+                                            <option value="6" selected>6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5"></div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-md-2 pt-1"><strong>Búscar:</strong></div>
+                                    <div class="col-lg-10">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-search"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" id="searchData">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*end filter*@
+                        </div>
+                    </div>
+                    <div class="py-2 col-lg-12">
+                        <div class="row" id="shoppings-list">
+                            <!-- home sales list -->
+                            <div class="col-lg-12">
+                                <div class="accordion custom-accordion pointer" id="custom-accordion-one">
+                                    
+                                </div>
+                            </div> <!-- end col-->
+                            <!-- end sales list-->
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+<!--  Modal content for the Large example -->
+<div class="modal fade" id="modal-payments" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="dark-header-modalLabel">Abonos de la venta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="px-3 pb-3">
+                <div class="border border-secondary-100 rounded px-2 mt-3">
+                    <div class="modal-body">
+                        <div class="row">
+                            @*filter*@
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-md-3 pt-1"><strong>Ver</strong></div>
+                                    <div class="col-md-6">
+                                        <select id="show-payment-quantity" class="form-control">
+                                            <option value="3" selected>3</option>
+                                            <option value="6">6</option>
+                                            <option value="12">12</option>
+                                            <option value="18">18</option>
+                                            <option value="24">24</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 pt-1"><strong>registros</strong></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-5">
+                                <div class="row">
+                                    <div class="col-md-3 pt-1"><strong>Fecha:</strong></div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <span class="uil-search"></span>
+                                                    </div>
+                                                </div>
+                                                <input type="date" class="form-control" id="payment-searchdate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*end filter*@
+                            <div class="col-lg-12 table-responsive-sm">
+                                <table id="payments-table" class="table table-centered mb-0 w-100">
+                                    <thead class="font-weight-bold alert-success text-center">
+                                        <tr>
+                                            <td>Monto</td>
+                                            <td>Fecha del abono</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center" id="data-body">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="payment-pagination" class="row">
+                            
+                        </div>
+                        <div class="row font-weight-bold text-white pt-3 px-1">
+                            <div class="col-lg-6 py-2">Estado de la venta: <span class="font-weight-normal" id="sale-status">No cancelada</span></div>
+                            <div class="col-lg-6 py-2 bg-info">Total restante: <span class="font-weight-normal" id="restante">$ 178.40</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/sale/saleslist.js"></script>
+}

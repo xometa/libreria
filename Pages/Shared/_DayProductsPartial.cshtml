@@ -1,0 +1,38 @@
+@model RosaMaríaBookstore.Pages.IndexModel;
+@using RosaMaríaBookstore.Props;
+@{
+    SaleDayProducts product;
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+@if (Model.DayProducts.Count == 0)
+{
+    <tr>
+        <td colspan="4" class="text-center">
+            No se han realizado ventas
+        </td>
+    </tr>
+    return;
+}
+@for (int i = 0; i < Model.DayProducts.Count; i++)
+{
+    product = Model.DayProducts[i];
+    <tr>
+        <td>
+            <img src="@product.Imagen" alt="contact-img" title="contact-img" class="rounded mr-3" height="48" />
+            <p class="m-0 d-inline-block align-middle font-16">
+                <span class="text-body">@product.Producto</span>
+            </p>
+        </td>
+        <td>
+            @product.Categoria
+        </td>
+        <td>
+            $ @product.PrecioVenta.ToString("0.00")
+        </td>
+        <td>
+            @product.Cantidad
+        </td>
+    </tr>
+}

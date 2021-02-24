@@ -1,0 +1,311 @@
+@model RosaMaríaBookstore.Pages.Users.UserInformationModel;
+@using RosaMaríaBookstore.Models;
+@{
+    Usuario u = Model.UserInformation;
+    String fmd = "dd/MM/yyyy";
+    String image = "/images/not-user.png";
+    int idEmployed = Model.Empleado.Id;
+    int idPerson = Model.Persona.Id;
+    int idPhone = Model.Telefono.Id;
+    int idUser = Model.Usuario.Id;
+    string phone = Model.Telefono.Telefono1;
+}
+
+
+<div class="mt-3 text-center">
+    @if (u.IdimagenNavigation != null)
+    {
+        image = "/images/users/" + u.IdimagenNavigation.Nombre;
+    }
+    <img src="@image" alt="shreyu" class="img-thumbnail avatar-lg rounded-circle">
+    <h4>@u.IdempleadoNavigation.IdpersonaNavigation.Fullname()</h4>
+    <button class="btn btn-primary btn-sm mt-1"><i class="uil uil-sitemap mr-1"></i>
+        @u.Rol</button>
+    <p class="text-muted mt-2 font-14">Sesión: <strong>Iniciada</strong></p>
+</div>
+
+<ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+    <li class="nav-item">
+        <a href="#home1" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0 active">
+            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+            <span class="d-none d-md-block">Perfil</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#profile1" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+            <span class="d-none d-md-block">Actualizar</span>
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane show active" id="home1">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mt-3">
+                    <hr class="">
+                    <p class="mt-4 mb-1 text-center"><strong><i class="uil uil-diary-alt"></i> Información
+                            personal</strong>
+                    </p>
+                    <p class="mt-4 mb-1"><strong><i class="uil uil-file-landscape-alt"></i> DUI:</strong></p>
+                    <p>@u.IdempleadoNavigation.IdpersonaNavigation.Dui</p>
+
+                    <p class="mt-3 mb-1"><strong><i class="uil uil-users-alt"></i> Género:</strong></p>
+                    <p>@u.IdempleadoNavigation.Sexo</p>
+
+                    <p class="mt-3 mb-1"><strong><i class="uil uil-schedule"></i> Fecha nacimiento:</strong></p>
+                    <p>
+                        @if (u.IdempleadoNavigation.Fechanacimiento != null)
+                        {
+                            Output.Write(u.IdempleadoNavigation.Fechanacimiento.Value.ToString(fmd));
+                        }
+                        else
+                        {
+                            Output.Write("No hay información");
+                        }
+                    </p>
+
+                    <p class="mt-3 mb-1"><strong><i class="uil uil-phone"></i> Teléfono:</strong></p>
+                    <p>
+                        @if (u.IdempleadoNavigation.IdtelefonoNavigation != null)
+                        {
+                            Output.Write(u.IdempleadoNavigation.IdtelefonoNavigation.Telefono1);
+                        }
+                        else
+                        {
+                            Output.Write("No hay información");
+                        }
+                    </p>
+
+                    <p class="mt-3 mb-2"><strong><i class="uil uil-minus-square-full"></i> Cargo:</strong></p>
+                    <p>
+                        @if (u.IdempleadoNavigation.IdcargoNavigation != null)
+                        {
+                            <span class="badge badge-success-lighten p-1 font-14">
+                                @u.IdempleadoNavigation.IdcargoNavigation.Nombre
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-info-lighten p-1 font-14">
+                                No hay Información
+                            </span>
+                        }
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="mt-3">
+                    <hr class="">
+                    <p class="mt-4 mb-1 text-center"><strong><i class="uil uil-user"></i> Información
+                            usuario</strong>
+                    </p>
+                    <p class="mt-4 mb-1"><strong><i class="uil uil-user-square"></i> Usuario:</strong></p>
+                    <p>@u.Usuario1</p>
+
+                    <p class="mt-3 mb-1"><strong><i class="uil uil-at"></i> Correo:</strong></p>
+                    <p>@u.Correo</p>
+
+                    <p class="mt-3 mb-1"><strong><i class="uil uil-lock-open-alt"></i> Estado:</strong></p>
+                    <p>
+                        @if (u.Estado == (sbyte)1)
+                        {
+                            <span class="badge badge-success-lighten p-1 font-14">
+                                Activo
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger-lighten p-1 font-14">
+                                Inactivo
+                            </span>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="profile1">
+        <form id="formUser" name="formUser" method="POST" autocomplete="off">
+            <div class="modal-body">
+                <div class="row" id="user-data">
+                    @if (idEmployed > 0 && idPerson > 0 && idUser > 0)
+                    {
+                        <input class="form-control" asp-for="Empleado.Id" hidden>
+                        <input class="form-control" asp-for="Persona.Id" hidden>
+                        <input class="form-control" asp-for="Usuario.Id" hidden>
+                    }
+
+                    @if (idPhone > 0 && (!String.IsNullOrEmpty(phone) || !String.IsNullOrWhiteSpace(phone)))
+                    {
+                        <input class="form-control" asp-for="Telefono.Id" hidden>
+                    }
+                    <div class="col-lg-6">
+                        <div class="form-group px-3">
+                            <label asp-for="Persona.Nombre" class="font-weight-bold">Nombre<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-user-square"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Persona.Nombre" class="form-control"
+                                    placeholder="Nombre del empleado">
+                            </div>
+                            <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Persona.Apellido" class="font-weight-bold">Apellido<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-user-square"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Persona.Apellido" class="form-control"
+                                    placeholder="Apellido del empleado">
+                            </div>
+                            <span asp-validation-for="Persona.Apellido" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Persona.Dui" class="font-weight-bold">DUI</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-atm-card"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Persona.Dui" class="form-control" placeholder="00000000-0"
+                                    data-toggle="input-mask" data-mask-format="00000000-0">
+                            </div>
+                            <span asp-validation-for="Persona.Dui" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Empleado.Sexo" class="font-weight-bold">Sexo<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-users-alt"></span>
+                                    </div>
+                                </div>
+                                <select asp-for="Empleado.Sexo" class="custom-select form-control" required>
+                                    <option value=" ">--- Seleccionar sexo---</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="Empleado.Sexo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Empleado.Fechanacimiento" class="font-weight-bold">Fecha de
+                                nacimiento</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="mdi mdi-calendar-month"></span>
+                                    </div>
+                                </div>
+                                <input type="date" class="form-control" asp-for="Empleado.Fechanacimiento">
+                            </div>
+                            <span asp-validation-for="Empleado.Fechanacimiento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Telefono.Telefono1" class="font-weight-bold">Teléfono</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-phone-pause"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Telefono.Telefono1" class="form-control"
+                                    placeholder="0000-0000" data-toggle="input-mask" data-mask-format="0000-0000">
+                            </div>
+                            <span asp-validation-for="Telefono.Telefono1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group px-3">
+                            <label asp-for="Usuario.Usuario1" class="font-weight-bold">Usuario<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-user-plus"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Usuario.Usuario1" class="form-control"
+                                    placeholder="Nombre del usuario">
+                            </div>
+                            <span asp-validation-for="Usuario.Usuario1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Usuario.Contrasena" class="font-weight-bold">Contraseña<span
+                                    class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-lock-alt"></span>
+                                    </div>
+                                </div>
+                                <input type="password" asp-for="Usuario.Contrasena" class="form-control"
+                                    placeholder="Contraseña del usuario">
+                            </div>
+                            <span asp-validation-for="Usuario.Contrasena" class="text-danger"></span>
+                        </div>
+                        <div class="form-group px-3">
+                            <label asp-for="Usuario.Correo" class="font-weight-bold">Correo</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="uil-envelope-alt"></span>
+                                    </div>
+                                </div>
+                                <input type="text" asp-for="Usuario.Correo" class="form-control"
+                                    placeholder="Correo para recuperación de cuenta">
+                            </div>
+                            <span asp-validation-for="Usuario.Correo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group px-3">
+                            <label asp-for="Usuario.Archivo" class="font-weight-bold">Imagen</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" asp-for="Usuario.Archivo" class="custom-file-input">
+                                    <label class="custom-file-label">Búscar imagen</label>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Usuario.Archivo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group px-3">
+                            <label class="font-weight-bold">VistaPrevia</label><br>
+                            <div class="col text-center">
+                                @if (Model.Usuario.IdimagenNavigation != null)
+                                {
+                                    image = "/images/users/" + Model.Usuario.IdimagenNavigation.Nombre;
+                                }
+                                else
+                                {
+                                    image = "/images/not-user.png";
+                                }
+                                <img src="@image" id="imageview" alt="image"
+                                    class="img-fluid avatar-xl rounded-circle img-thumbnail" width="200" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer new-footer">
+                    <button type="button" class="btn btn-light font-weight-bold btn-rounded" id="btn-cancel"><i
+                            class="mdi mdi-close"></i> Cancelar</button>
+                <button type="submit" class="btn btn-dark font-weight-bold btn-rounded"><i
+                        class="mdi mdi-border-color"></i> Modificar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+@page
+@model RosaMaríaBookstore.Pages.Users.EmployedModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Personal"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Personal</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Personal</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-2">
+                        <button type="button" class="btn btn-success font-weight-bold btn-rounded" id="addEmployed"><i class="mdi mdi-plus"></i> Nuevo empleado</button>
+                    </div>
+                    <h4 class="header-title col-md-12 mt-2 mb-3">Listado de Personal</h4>
+                    @*filter*@
+                    <div class="col-lg-3">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                            <div class="col-md-4">
+                                <select id="showQuantity" class="form-control">
+                                    <option value="6" selected>6</option>
+                                    <option value="12">12</option>
+                                    <option value="18">18</option>
+                                    <option value="24">24</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Búscar:</strong></div>
+                            <div class="col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-search"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" id="searchData">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*end filter*@
+                    <div class="py-2 col-lg-12">
+                        <div class="row px-2">
+                            <div class="table-responsive" id="employed-list">
+                                <!-- home employed list -->
+                                <table id="scroll-horizontal-datatable-1" class="table table-centered w-100 nowrap">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>DUI</th>
+                                            <th>Sexo</th>
+                                            <th>Fecha Nacimiento</th>
+                                            <th>Teléfono</th>
+                                            <th>Usuario</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data-list">
+                                    
+                                    </tbody>
+                                </table>
+                                <!-- end employed list-->
+                            </div>
+                        </div><!-- end row-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+<!--  Modal content for employed-->
+<div class="modal fade" id="modal-employed" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="modal-title-employed">Nuevo Empleado</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form id="formEmployed" name="formEmployed" method="POST" autocomplete="off">
+                <div class="modal-body" id="data-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light font-weight-bold btn-rounded" data-dismiss="modal"><i
+                            class="mdi mdi-close"></i> Cancelar</button>
+                    <button type="submit" id="btn-action" class="btn btn-dark font-weight-bold btn-rounded"><i
+                            class="mdi mdi-content-save"></i> Guardar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--  Modal content for user-->
+<div class="modal fade" id="modal-user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="user-title">Agregar Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form id="formUser" name="formUser" method="POST" autocomplete="off">
+                <div class="modal-body">
+                    <div class="row" id="user-data">
+                      
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light font-weight-bold btn-rounded" data-dismiss="modal"><i
+                            class="mdi mdi-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-dark font-weight-bold btn-rounded" id="user-button"><i
+                            class="mdi mdi-account-plus"></i> Agregar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--  Modal content for phone's -->
+<div class="modal fade" id="modal-informationuser" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="dark-header-modalLabel">Información del usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card text-center mb-0">
+                            <div class="card-body" id="userinformation">
+                                
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div> <!-- end col-->
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Alert Modal -->
+<div id="modalDeleteEmployed" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-trash h1 text-danger"></i>
+                    <h4 class="mt-2" id="mtitle">Eliminar empleado</h4>
+                    <p class="mt-3" id="mtitle-delete">El registro se eliminará de manera permanente. ¿Estás seguro?</p>
+                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger my-2" id="mbtn-delete" data-dismiss="modal">Sí,
+                        eliminar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/staff/employed.js"></script>
+}

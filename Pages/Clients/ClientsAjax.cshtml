@@ -1,0 +1,83 @@
+@page
+@model RosaMaríaBookstore.Pages.Clients.ClientsAjaxModel;
+@using RosaMaríaBookstore.Models;
+@{ Layout=null; }
+@{
+    
+    String dui="Sin identificación";
+}
+@if(Model.Option.Equals("Público")){
+    <div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total" data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+    </div>
+    @if (Model.ClientsList.Count==0)
+    {
+        <tr>
+            <td colspan="4" class="text-center">
+                No hay registros
+            </td>
+        </tr>
+        return;
+    }
+    @foreach (var client in Model.ClientsList)
+    {
+        @if (!String.IsNullOrEmpty(client.Dui))
+        {
+            dui=client.Dui;
+        }
+        <tr>
+            <td>@client.Nombre</td>
+            <td>@client.Apellido</td>
+            <td>@dui</td>
+            <td>
+                    @if (client.Nombre.Equals("Público general") && client.Apellido.Equals("Público general") &&
+                    String.IsNullOrEmpty(client.Dui))
+                    {
+                        <div>Sin acciones</div>
+                    }else{
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning btn-rounded" data-idclient="@client.Id"><i
+                                class="mdi mdi-pencil"></i> </button>
+                            <button type="button" class="btn btn-danger btn-rounded" data-idclient="@client.Id"><i
+                                class="mdi mdi-delete"></i> </button>
+                        </div>
+                    }
+            </td>
+        </tr>
+    }
+}else if(Model.Option.Equals("Institución")){
+    <div id="institution-filters" data-showRegisters="@Model.showRegisters" data-total="@Model.total" data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+    </div>
+    if(Model.InstitutionsList.Count==0){
+        <tr>
+            <td colspan="7" class="text-center">
+                No hay registros
+            </td>
+        </tr>
+        return;
+    }
+    foreach (var ins in Model.InstitutionsList)
+    {
+        <tr>
+            <td>@ins.IdrepresentanteNavigation.Nombre</td>
+            <td>@ins.IdrepresentanteNavigation.Apellido</td>
+            <td>@ins.IdrepresentanteNavigation.Dui</td>
+            <td>@ins.Nombre</td>
+            <td>@ins.Direccion</td>
+            <td>
+                <button type="button" class="btn btn-info btn-rounded"
+                    data-idinstitution="@ins.Id"><i
+                    class="mdi mdi-plus"></i> Añadir telefonos</button></td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-warning btn-rounded" data-idperson="@ins.Idrepresentante"><i
+                        class="mdi mdi-pencil"></i> </button>
+                    <button type="button" class="btn btn-danger btn-rounded"
+                        data-idperson="@ins.Idrepresentante"><i
+                        class="mdi mdi-delete"></i> </button>
+                </div>
+            </td>
+        </tr>
+    }
+}else{
+    <div>La información del servidor ha sido alterada.</div>
+}

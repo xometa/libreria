@@ -1,0 +1,68 @@
+@model RosaMaríaBookstore.Pages.Kardex.KardexModel;
+@using RosaMaríaBookstore.Props;
+@{
+    KardexQuery kardex;
+    int size = Model.KardexList.Count;
+    decimal subtotal = 0,total=0;
+    double iva=0;
+    string fmtf = "dd/MM/yyyy";
+}
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize" data-saldo="@Model.Existencia">
+</div>
+@if (size == 0)
+{
+    <tr>
+        <td colspan="10" class="text-center">
+            No hay registros
+        </td>
+    </tr>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    kardex = Model.KardexList[i];
+    subtotal = kardex.Cantidad * kardex.PrecioUnitario;
+    iva=Convert.ToDouble(subtotal)*0.13;
+    total=subtotal+Convert.ToDecimal(iva);
+    <tr>
+        <td class="font-weight-bold">@(i+1)</td>
+        <td class="font-weight-bold">@kardex.Documento</td>
+        <td class="font-weight-bold">@kardex.Fecha.ToString(fmtf)</td>
+        <td class="font-weight-bold">@if (kardex.IdCompra != null)
+            {
+                Output.Write("Compra");
+            }
+            else
+            {
+                Output.Write("Venta");
+            }</td>
+        @if (kardex.IdCompra != null)
+        {
+
+            <td>@kardex.Cantidad</td>
+            <td>@kardex.PrecioUnitario</td>
+            <td>@total.ToString("0.00")</td>
+            <td>0</td>
+            <td>0.00</td>
+            <td>0.00</td>
+        }
+        else
+        {
+
+            <td>0</td>
+            <td>0.00</td>
+            <td>
+                0.00
+            </td>
+            <td>@kardex.Cantidad</td>
+            <td>@kardex.PrecioUnitario</td>
+            <td>@total.ToString("0.00")</td>
+        }
+
+        <td class="font-weight-bold">
+            @kardex.Existencia
+        </td>
+    </tr>
+}

@@ -1,0 +1,60 @@
+@model RosaMaríaBookstore.Pages.Users.EmployedModel;
+@using RosaMaríaBookstore.Models;
+@{
+    Usuario user = Model.Usuario;
+    String image = "/images/users/";
+    String type = user.IdempleadoNavigation.IdpersonaNavigation.Tipo;
+    if (user.Idimagen > 0 && user.IdimagenNavigation != null)
+    {
+        image += user.IdimagenNavigation.Nombre;
+    }
+    else
+    {
+        image = "/images/not-user.png";
+    }
+}
+<img src="@image" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+
+<h4 class="mb-0 mt-2">@user.IdempleadoNavigation.IdpersonaNavigation.Nombre</h4>
+<p class="text-muted font-14">@user.Rol</p>
+
+<div class="text-left mt-3">
+    <p class="text-muted mb-2 font-13"><strong>Usuario :</strong> <span class="ml-2">@user.Usuario1</span></p>
+
+    <p class="text-muted mb-2 font-13"><strong>Correo :</strong> <span class="ml-2 ">
+            @if (!String.IsNullOrEmpty(user.Correo))
+            {
+                Output.Write(user.Correo);
+            }
+            else
+            {
+                Output.Write("Sin registro");
+            }
+        </span></p>
+    @if (!type.Equals("Administrador"))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="text-muted mb-1 font-13 d-inline-block"><strong>Estado :</strong>
+                </p>
+            </div>
+            <div class="col-sm-8">
+                @if (user.Estado == 1)
+                {
+                    <input type="checkbox" id="switch3" checked data-switch="success"
+                        data-iduser="@user.IdempleadoNavigation.Id" />
+                }
+                else
+                {
+                    <input type="checkbox" id="switch3" data-switch="success" data-iduser="@user.IdempleadoNavigation.Id" />
+                }
+                <label for="switch3" data-on-label="" data-off-label=""></label>
+            </div>
+        </div>
+    }
+</div>
+@if (!type.Equals("Administrador"))
+{
+    <button type="button" class="btn btn-danger btn-sm mb-2" data-iduser="@user.IdempleadoNavigation.Id"><i
+            class="mdi mdi-delete"></i> Eliminar usuario</button>
+}

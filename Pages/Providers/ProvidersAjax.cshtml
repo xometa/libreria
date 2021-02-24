@@ -1,0 +1,41 @@
+@page
+@model RosaMaríaBookstore.Pages.Providers.ProvidersAjaxModel;
+@using RosaMaríaBookstore.Models;
+@{
+    Layout = null; 
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (Model.ProvidersList.Count == 0)
+{
+    <tr>
+        <td colspan="7" class="text-center">
+            No hay registros
+        </td>
+    </tr>
+    return;
+}
+@foreach (var pro in Model.ProvidersList)
+{
+    <tr>
+        <td>@pro.IdrepresentanteNavigation.Nombre</td>
+        <td>@pro.IdrepresentanteNavigation.Apellido</td>
+        <td>@pro.IdrepresentanteNavigation.Dui</td>
+        <td>@pro.Nombre</td>
+        <td>@pro.Direccion</td>
+        <td>
+            <button type="button" class="btn btn-info btn-rounded" data-idprovider="@pro.Id"><i 
+            class="mdi mdi-plus"></i>Añadir teléfonos</button></td>
+        <td>
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning btn-rounded" data-idperson="@pro.Idrepresentante"><i
+                        class="mdi mdi-pencil"></i> </button>
+                <button type="button" class="btn btn-danger btn-rounded" data-idperson="@pro.Idrepresentante"><i
+                        class="mdi mdi-delete"></i> </button>
+            </div>
+        </td>
+    </tr>
+}

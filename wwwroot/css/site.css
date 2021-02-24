@@ -1,0 +1,85 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.pointer {
+    cursor: pointer;
+}
+
+.scroll-height-vista {
+    min-height: 325px;
+    max-height: 330px !important;
+}
+
+.scroll-shopping {
+    min-height: 440px;
+    max-height: 450px !important;
+}
+
+.new-footer {
+    justify-content: center !important;
+}
+
+.table .thead-dark th {
+    color: #ffffff !important;
+}
+
+.modal-shopping {
+    max-width: 80% !important;
+}
+
+.head-acordion-success {
+    color: #056c4f !important;
+    background-color: #cef5ea !important;
+    border-color: #baf2e2
+}
+
+.head-acordion-info {
+    color: #236172 !important;
+    background-color: #daf1f8 !important;
+    border-color: #cbecf5 !important;
+}
+
+.head-acordion-danger {
+    color: #823636 !important;
+    background-color: #fee1e1 !important;
+    border-color: #fed4d4 !important;
+}
+
+.scroll-details-sale {
+    min-height: 195px;
+    max-height: 200px;
+}
+
+.img-logo {
+    width: 70%;
+    max-width: 100%;
+    height: auto;
+}
+
+.card {
+    border: none;
+    -webkit-box-shadow: 0 0 15px 0 rgba(154, 161, 171, .15) !important;
+    box-shadow: 0 0 15px 0 rgba(154, 161, 171, .15) !important;
+    margin-bottom: 24px
+}
+
+.image-height {
+    width: 100% !important;
+    height: 199.2px !important;
+}
+
+.text-space-products{
+    width: 120px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.tasks{
+    border-radius: 0px !important;
+    margin-right:0px !important;
+}
+
+.task-list-items:before{
+    content:"Sin consultas";
+}

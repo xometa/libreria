@@ -1,0 +1,54 @@
+@page
+@model RosaMaríaBookstore.Pages.Trademarks.TrademarksAjaxModel;
+@using RosaMaríaBookstore.Models;
+@{ Layout=null; }
+
+@{
+    int size=Model.TrademarksList.Count;
+    Marca trademark;
+    String id="";
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (size==0)
+{
+    <div class="col-md-12">
+        <div class="alert alert-info text-center font-weight-bold">
+            <h5>No hay registros</h5>
+        </div>
+    </div>
+    return;
+}
+
+@for (int i = 0; i < size; i++)
+{
+    trademark=Model.TrademarksList[i];
+    id="switch"+trademark.Id;
+
+    <div class="col-md-3">
+        <div class="card border border-radius">
+            <div class="card-body">
+                <div class="card-title px-2">
+                    <h5 class="font-weigth-bold float-left">@(i+1) - @trademark.Nombre</h5>
+                    <div class="tab-pane show active float-right" id="switches-preview">
+                        @if (trademark.Estado==1)
+                        {
+                            <input type="checkbox" id="@id" checked data-switch="success" data-idtrademark="@trademark.Id">
+                            <label for="@id" data-on-label="" data-off-label="" class="mb-0 d-block"></label>
+                        }else{
+                            <input type="checkbox" id="@id" data-switch="success" data-idtrademark="@trademark.Id">
+                            <label for="@id" data-on-label="" data-off-label="" class="mb-0 d-block"></label>
+                        }
+                    </div>
+                </div>
+                <div class="btn-group mb-2 col-md-12">
+                    <button type="button" class="btn btn-warning btn-rounded"><span data-idtrademark="@trademark.Id" class="h4 mdi mdi-pencil"></span></button>
+                    <button type="button" class="btn btn-danger btn-rounded"><span data-idtrademark="@trademark.Id" class="h4 mdi mdi-delete"></span></button>
+                </div><!-- end btn-group-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+}

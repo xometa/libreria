@@ -1,0 +1,154 @@
+@page
+@model RosaMaríaBookstore.Pages.Users.PermissionsModel;
+@using RosaMaríaBookstore.Models;
+@{ ViewData["Title"] = "Librería | Permisos"; }
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Permisos</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Permisos</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-2">
+                        <div class="border border-secondary-100 rounded">
+                            <form id="formPermissions" name="formPermissions" method="POST" autocomplete="off">
+                                <div class="modal-colored-header bg-dark text-center py-2">
+                                    <h5 class="modal-title">Registro de permisos para los
+                                        usuarios</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group px-2">
+                                                <label asp-for="Permission.Idusuario" class="font-weight-bold">Usuario<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <span class="uil-user-square"></span>
+                                                        </div>
+                                                    </div>
+                                                    <select class="custom-select form-control" asp-for="Permission.Idusuario">
+                                                        <option value="">--- Seleccionar usuario ---</option>
+                                                        @foreach (var user in Model.usersList)
+                                                        {
+                                                            if (user.IdempleadoNavigation.IdcargoNavigation!=null && 
+                                                                user.IdempleadoNavigation.IdpersonaNavigation.Tipo.Equals("Empleado"))
+                                                            {
+                                                                <option value="@user.Id">@user.IdempleadoNavigation.IdpersonaNavigation.Fullname() </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <span asp-validation-for="Permission.Idusuario" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group px-2">
+                                                <label asp-for="Permission.Idpermiso" class="font-weight-bold">Permiso<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <span class="uil-lock-open-alt"></span>
+                                                        </div>
+                                                    </div>
+                                                    <select class="custom-select form-control" asp-for="Permission.Idpermiso">
+                                                        <option value="">--- Seleccionar permiso ---</option>
+                                                    </select>
+                                                </div>
+                                                <span asp-validation-for="Permission.Idpermiso" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end modal-body -->
+                                <div class="modal-footer new-footer">
+                                    <button type="button" class="btn btn-light font-weight-bold btn-rounded" id="btn-cancel"><i
+                                            class="mdi mdi-close"></i> Cancelar</button>
+                                    <button type="submit" class="btn btn-dark font-weight-bold btn-rounded"><i
+                                            class="mdi mdi-content-save"></i> Guardar</button>
+                                </div><!-- end modal-footer -->
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 pt-2">
+                        <div class="border border-secondary-100 rounded py-2 px-3">
+                            <h4 class="header-title col-md-12 mt-2 mb-2">Listado de permisos del usuario</h4>
+                            <div class="py-2 row">
+                                <div class="col-lg-12">
+                                    <div class="row" id="permissions-list">
+                                        <!-- home permissions list -->
+                                        <!-- end permissions list-->
+                                    </div><!-- end row-->
+                                </div>
+                            </div><!-- end col-->
+                        </div>
+                    </div>
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+<!-- Alert Modal -->
+<div id="modalDeletePermission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-trash h1 text-danger"></i>
+                    <h4 class="mt-2">Eliminar permiso</h4>
+                    <p class="mt-3">Se eliminará de forma permanente el permiso otorgado al usuario. ¿Estás seguro?</p>
+                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger my-2" id="mbtn-delete" data-dismiss="modal">Sí,
+                        eliminar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<template id='plantilla-option'>
+  <option value=''></option>
+</template>
+<template id='permission'>
+    <div class="col-lg-3">
+        <div class="card overflow-hidden border border-radius">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="toll-free-box text-center">
+                            <h4> <i></i> Nombre</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-danger btn-rounded float-right"><i class="h4 mdi mdi-delete"></i></button>
+                    </div>
+                </div>
+            </div> <!-- end card-body-->
+        </div>
+    </div>
+</template>
+<template id="message">
+    <div class="col-md-12">
+        <div class="alert alert-info text-center font-weight-bold">
+            <h5>No se encontrarón registros</h5>
+        </div>
+    </div>
+</template>
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/staff/permission.js"></script>
+}

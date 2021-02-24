@@ -1,0 +1,359 @@
+@page
+@model RosaMaríaBookstore.Pages.Sales.SalesModel;
+@using RosaMaríaBookstore.Models;
+@{ 
+    ViewData["Title"] = "Librería | Nueva Venta"; 
+    string cadena="";
+    var ramdon=new Random();
+    List<string> lista=new List<string>();
+    lista.Add("btn btn-primary btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-secondary btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-success btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-danger btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-warning btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-info btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-light btn-rounded mt-1 mx-1");
+    lista.Add("btn btn-dark btn-rounded mt-1 mx-1");
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Nueva Venta</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Nueva Venta</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group text-right">
+                            <div class="btn btn-group" id="addnew">
+                                <a asp-area="" asp-page="/Clients/Clients" class="btn btn-primary btn-rounded"><span
+                                        class="uil-user-square"></span> Registrar Cliente</a>
+                                <a asp-area="" asp-page="/Products/Products" class="btn btn-success btn-rounded"><span
+                                        class="uil-archive"></span> Registrar Producto</a>
+                                <a asp-area="" asp-page="/Sales/SalesList" class="btn btn-info btn-rounded"><span
+                                        class="uil-eye"></span> Ver listado de ventas</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="border border-secondary-100 rounded">
+                            <div class="modal-colored-header bg-dark text-center py-3 mb-3">
+                                <h4 class="modal-title">Productos disponibles para la venta</h4>
+                            </div>
+                            <div class="row pb-4">
+                                <div class="col-lg-12">
+                                    <div class="row px-3">
+                                        @*filter*@
+                                        <div class="col-lg-3">
+                                            <div class="row">
+                                                <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                                                <div class="col-md-4">
+                                                    <select id="showQuantity" class="form-control">
+                                                        <option value="8" selected>8</option>
+                                                        <option value="12">12</option>
+                                                        <option value="16">16</option>
+                                                        <option value="24">24</option>
+                                                        <option value="32">32</option>
+                                                        <option value="60">60</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5"></div>
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-md-2 pt-1"><strong>Búscar</strong></div>
+                                                <div class="col-lg-10">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    <span class="uil-search"></span>
+                                                                </div>
+                                                            </div>
+                                                            <input type="text" class="form-control" id="searchData">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*end filter*@
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div data-simplebar class="col-lg-8 scroll-shopping">
+                                            <!-- home sales-->
+                                            <div class="row px-3" id="products-list">
+                                                
+                                            </div>
+                                            <!-- end sales-->
+                                        </div>
+                                        <!-- end col -->
+
+                                        <div class="col-lg-4 pl-3 pr-4">
+                                            <div class="border p-3 mt-4 mt-lg-0 rounded" id="information">
+                                                
+                                            </div>
+                                            <!-- end producto information -->
+                                            <div class="row px-2 pt-2">
+                                                <button type="button" class="btn btn-info btn-rounded col-lg-12"
+                                                    data-toggle="modal" data-target="#modal-sale"><i
+                                                        class="uil-eye"></i> Ver venta a realizar</button>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row -->
+                                </div><!--end product list-->
+                                <div class="col-lg-12">
+                                    <div class="row px-3 pb-2 pt-2" id="categories-container">
+                                        <button type="button" class="btn btn-dark btn-rounded mt-1 mx-1" data data-category="Todo" data-idcategory="0">Todo</button>                                
+                                        @foreach (var c in Model.categoriesList)
+                                        {
+                                            int generate = ramdon.Next(0, 8);
+                                            cadena=lista[generate];
+                                            <button type="button" class="@cadena" data data-category="@c.Nombre" data-idcategory="@c.Id">@c.Nombre</button>                                
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 px-4 py-2">
+                                    <div id="create-pagination" class="row">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end row-->
+            </div><!-- end car-body-->
+        </div><!-- end card-->
+    </div><!-- end col-->
+</div><!-- end row-->
+
+
+<!--  Modal content for the Large example -->
+<div class="modal fade" id="modal-sale" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 65% !important;">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-dark">
+                <h4 class="modal-title" id="dark-header-modalLabel">Información de la venta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form id="formSale" name="formSale" method="POST" autocomplete="off">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row px-2 pb-2">
+                                <div class="col-lg-12">
+                                    <div class="py-2 alert-info text-center font-weight-bold">
+                                        Datos de la venta
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group px-2">
+                                <label asp-for="Sale.Documento" class="font-weight-bold"># documento<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="mdi mdi-file-document-box-outline"></span>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" asp-for="Sale.Documento">
+                                </div>
+                                <span asp-validation-for="Sale.Documento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group px-2">
+                                <label asp-for="Sale.Idcliente" class="font-weight-bold">Cliente<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="uil-user-square"></span>
+                                        </div>
+                                    </div>
+                                    <select class="custom-select form-control" required asp-for="Sale.Idcliente">
+                                        <option value=" ">--- Seleccionar cliente ---</option>
+                                        @foreach (var p in Model.ClientsList)
+                                        {
+                                            if (p.Nombre.Equals("Público general") && p.Apellido.Equals("Público general") &&
+                                                String.IsNullOrEmpty(p.Dui))
+                                            {
+                                                <option value="@p.Id">@p.Nombre</option>
+                                            }else{
+                                                <option value="@p.Id">@p.Fullname()</option>
+                                            }
+                                        }
+                                        @foreach (var i in Model.InstitutionsList)
+                                        {
+                                            <option value="@i.Idrepresentante">@i.Nombre / @i.IdrepresentanteNavigation.Fullname() </option>
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Sale.Idcliente" class="text-danger"></span>
+                            </div>
+                            <div class="form-group px-2">
+                                <label asp-for="Sale.Fecha" class="font-weight-bold">Fecha<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="mdi mdi-calendar-month"></span>
+                                        </div>
+                                    </div>
+                                    <input type="Date" class="form-control" asp-for="Sale.Fecha">
+                                </div>
+                                <span asp-validation-for="Sale.Fecha" class="text-danger"></span>
+                            </div>
+                            <div class="form-group px-2">
+                                <label asp-for="Sale.Tipo" class="font-weight-bold">Tipo de venta<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class=" uil-info-circle"></span>
+                                        </div>
+                                    </div>
+                                    <select class="custom-select form-control" required asp-for="Sale.Tipo">
+                                        <option value=" ">--- Seleccionar tipo ---</option>
+                                        <option value="Contado">Contado</option>
+                                        <option value="Crédito">Crédito</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Sale.Tipo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row px-2 pb-2">
+                                <div class="col-lg-12">
+                                    <div class="py-2 alert-info text-center font-weight-bold">
+                                        Detalle de la venta
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row px-2">
+                                <div class="col-lg-12 px-3">
+                                    <div class="row alert-success py-2 font-weight-bold text-center">
+                                        <div class="col-lg-3">Producto</div>
+                                        <div class="col-lg-3">Cantidad</div>
+                                        <div class="col-lg-2">Precio</div>
+                                        <div class="col-lg-2">Total</div>
+                                        <div class="col-lg-2">Accion</div>
+                                    </div>
+                                </div>
+                                
+                                <div data-simplebar class="col-lg-12 scroll-details-sale">
+                                    <div id="product-list-sales">
+                                                
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row px-2">
+                                <div class="col-lg-12 px-3">
+                                    <div class="row alert-success py-2 font-weight-bold">
+                                        <div class="col-lg-6">Sub total</div>
+                                        <div class="col-lg-6 text-right" id="subtotal">$ 0.00</div>
+                                        <div class="col-lg-6">IVA (13%)</div>
+                                        <div class="col-lg-6 text-right" id="iva">$ 0.00</div>
+                                        <div class="col-lg-6">Total</div>
+                                        <div class="col-lg-6 text-right" id="total">$ 0.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer new-footer">
+                    <button type="button" class="btn btn-light font-weight-bold btn-rounded" id="cancel"><i
+                            class="mdi mdi-close"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-dark font-weight-bold btn-rounded"><i
+                            class="uil-shopping-cart-alt"></i> Realizar venta</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<template id="empty">
+    <h4 class="header-title mb-2">Información del producto</h4>
+    <div class="card mb-0 shadow-none alert-warning">
+        <div class="p-2">
+            <div class="text-center">
+                Seleccione un producto
+            </div>
+        </div>
+    </div>
+</template>
+<template id="producto-information">
+    <h4 class="header-title mb-2">Información del producto</h4>
+    <div class="card mb-0 shadow-none border mb-3">
+        <div class="p-2">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <img class="avatar-sm rounded" src="" alt="Card image">
+                </div>
+                <div class="col pl-0">
+                    <a href="javascript:void(0);" class="text-muted font-weight-bold">Nombre producto</a>
+                    <p class="mb-0">Categoría producto</p>
+                </div>
+                <div class="col-auto">
+                    <!-- Button -->
+                    <div class="btn-link btn-lg text-muted">
+                        <span class="badge badge-info">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="header-title mb-2">Precios de venta</h4>
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <tbody id="table-prices">
+            </tbody>
+            <tfoot>
+                <tr class="alert-info">
+                    <td>Precio de venta seleccionado</td>
+                    <td>$ 0.15</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- end table-responsive -->
+</template>
+<template id="item-price">
+    <tr class="pointer">
+        <td>Precio 3</td>
+        <td>$ 0.25</td>
+    </tr>
+</template>
+
+<template id="product-sale">
+    <div class="row py-2 text-center">
+        <div class="col-lg-3">Zacapunta</div>
+        <div class="col-lg-3"><input type="number" min="1" value="1" class="form-control" placeholder="Cantidad"
+                style="width: 90px;"></div>
+        <div class="col-lg-2">$ 0.15</div>
+        <div class="col-lg-2">$ 0.15</div>
+        <div class="col-lg-2"><span class="action-icon text-danger pointer"> <i
+                    class="mdi mdi-delete mdi-24px"></i></span></div>
+    </div>
+</template>
+@section Scripts{
+<script src="~/assets/js/pages/demo.toastr.js"></script>
+<script src="~/js/sale/sale.js"></script>
+}

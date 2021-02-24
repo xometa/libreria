@@ -1,0 +1,280 @@
+﻿@page
+@model IndexModel
+@using RosaMaríaBookstore.Props;
+@{
+    ViewData["Title"] = "Inicio";
+    int i=0;
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Librería</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Página</a></li>
+                    <li class="breadcrumb-item active">Inicio</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Inicio</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card widget-flat">
+            <div class="card-body">
+                <div class="float-right">
+                    <i class="mdi mdi-account-multiple widget-icon"></i>
+                </div>
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Customers">Clientes</h5>
+                <h3 class="mt-3 mb-3">@Model.InstitutionsList.Count</h3>
+                <a asp-area="" asp-page="/Clients/Clients" class="btn btn-info btn-rounded float-right">Ver clientes</a>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-lg-3">
+        <div class="card widget-flat">
+            <div class="card-body">
+                <div class="float-right">
+                    <i class="mdi mdi-account widget-icon"></i>
+                </div>
+                <h5 class="text-muted font-weight-normal mt-0" title="Number of Orders">Usuarios</h5>
+                <h3 class="mt-3 mb-3">@Model.UsersList.Count</h3>
+                <a asp-area="" asp-page="/Users/Employed" class="btn btn-success btn-rounded float-right">Ver usuarios</a>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-lg-3">
+        <div class="card widget-flat">
+            <div class="card-body">
+                <div class="float-right">
+                    <i class="mdi mdi-shopping widget-icon"></i>
+                </div>
+                <h5 class="text-muted font-weight-normal mt-0" title="Average Revenue">Compras realizadas en el día</h5>
+                <h3 class="mt-3 mb-3">@Model.countShoppings</h3>
+                <a asp-area="" asp-page="/Shoppings/ShoppingsList" class="btn btn-danger btn-rounded float-right">Ver compras</a>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-lg-3">
+        <div class="card widget-flat">
+            <div class="card-body">
+                <div class="float-right">
+                    <i class="mdi mdi-cart widget-icon"></i>
+                </div>
+                <h5 class="text-muted font-weight-normal mt-0" title="Growth">Ventas realizadas en el día</h5>
+                <h3 class="mt-3 mb-3">@Model.countSales</h3>
+                <a asp-area="" asp-page="/Sales/SalesList" class="btn btn-dark btn-rounded float-right">Ver ventas</a>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="dropdown float-right">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="mdi mdi-dots-vertical"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a asp-area="" asp-page="/Sales/SalesList" class="dropdown-item">Ir a listado de ventas</a>
+                    </div>
+                </div>
+                <h4 class="header-title mb-3">Ingresos</h4>
+
+                <div class="chart-content-bg">
+                    <div class="row text-center">
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0 mt-3">Semana actual</p>
+                            <h2 class="font-weight-normal mb-3">
+                                <small class="mdi mdi-checkbox-blank-circle text-primary align-middle mr-1"></small>
+                                <span>$ @Model.cWeek.ToString("0.00")</span>
+                            </h2>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0 mt-3">Semana anterior</p>
+                            <h2 class="font-weight-normal mb-3">
+                                <small class="mdi mdi-checkbox-blank-circle text-success align-middle mr-1"></small>
+                                <span>$ @Model.lWeek.ToString("0.00")</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div id="revenue-chart" class="apex-charts mt-3" data-colors="#727cf5,#0acf97"></div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-xl-7 col-lg-12 order-lg-2 order-xl-1">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-2">Productos vendidos en el día (por precios de venta)</h4>
+                <div class="row mb-2 mt-4">
+                    @*filter*@
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-md-2 pt-1"><strong>Ver</strong></div>
+                            <div class="col-md-4">
+                                <select id="showQuantity" class="form-control">
+                                    <option value="4" selected>4</option>
+                                    <option value="8">8</option>
+                                    <option value="12">12</option>
+                                    <option value="24">24</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pt-1"><strong>registros</strong></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-3 pt-1"><strong>Búscar:</strong></div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <span class="uil-search"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" id="searchData">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*end filter*@
+                </div>
+               <div class="table-responsive">
+                    <table class="table table-centered w-100 dt-responsive nowrap" style="margin-bottom: 1.2rem !important">
+                        <thead class="thead-light">
+                             <tr>
+                                <th class="all">Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio de venta</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-body">
+
+                        </tbody>
+                    </table>
+                </div><!-- end table-responsive-->
+            </div> <!-- end card-body-->
+            <div class="card-footer">
+                <div class="row" id="create-pagination">
+                    
+                </div><!-- end row-->
+            </div><!-- end car-footer-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-5 col-lg-12 order-lg-2 order-xl-1">
+        <div class="card">
+            <div class="card-body">
+                <div class="dropdown float-right">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="mdi mdi-dots-vertical"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a asp-area="" asp-page="/RecentActivity/TimeLine" class="dropdown-item">Ir a bitácora</a>
+                    </div>
+                </div>
+                <h4 class="header-title mb-2">Actividad reciente de los usuarios</h4>
+
+                <div data-simplebar style="max-height: 565px;">
+                    <div class="timeline-alt pb-0">
+                        @foreach (var a in Model.UserActionsList)
+                        {
+                            DateTime startTime=a.Fechahora;
+                            DateTime endTime=DateTime.Now;
+                            TimeSpan span=endTime.Subtract(startTime);
+                            string detail="",colorText="font-weight-bold mb-1 d-block";
+                            if (span.Hours>0)
+                            {
+                                if (span.Hours>1)
+                                {
+                                    detail="Hace "+span.Hours+" horas";
+                                }else{
+                                    detail="Hace "+span.Hours+" hora";
+                                }
+                            }else if(span.Minutes>0){
+                                if (span.Minutes>1)
+                                {
+                                    detail="Hace "+span.Minutes+" minutos";
+                                }else{
+                                    detail="Hace "+span.Minutes+" minuto";
+                                }
+                            }else{
+                                if (span.Seconds>1)
+                                {
+                                    detail="Hace "+span.Seconds+" segundos";
+                                }else{
+                                    detail="Hace "+span.Seconds+" segundo";
+                                }
+                            }
+                            if (i%2==0)
+                            {
+                                colorText+=" text-info";
+                            }else{
+                                colorText+=" text-primary";
+                            }
+
+                            <div class="timeline-item">
+                                <img src="@a.Imagen" alt="image-user" class="bg-info-lighten timeline-icon avatar-xs rounded-circle">
+                                <div class="timeline-item-info">
+                                    <span class="@colorText">@a.Empleado </span>
+                                    <small>@a.Descripcion</small>
+                                    <p class="mb-0 pb-2">
+                                        <small class="text-muted">@detail</small>
+                                    </p>
+                                </div>
+                            </div>
+                            i++;
+                        }
+                    </div>
+                    <!-- end timeline -->
+                </div> <!-- end slimscroll -->
+            </div>
+            <!-- end card-body -->
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+
+</div>
+<!-- end row -->
+
+@section Scripts{
+<!-- third party js -->
+<script src="~/assets/js/vendor/apexcharts.min.js"></script>
+@*<script src="~/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="~/assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>*@
+<!-- third party js ends -->
+
+<!-- demo app -->
+@*<script src="~/assets/js/pages/demo.dashboard.js"></script>*@
+<!-- end demo js-->
+
+<script src="~/js/home/home.js"></script>
+}

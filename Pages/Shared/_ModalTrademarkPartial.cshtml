@@ -1,0 +1,22 @@
+@model RosaMaríaBookstore.Pages.Trademarks.TrademarksModel;
+@{
+    int id = Model.Marca.Id;
+}
+@if (id != 0)
+{
+    <input class="form-control" asp-for="Marca.Id" hidden>
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group px-3">
+    <label asp-for="Marca.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-pricetag-alt"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Marca.Nombre" class="form-control" placeholder="Nombre de la marca">
+    </div>
+    <span asp-validation-for="Marca.Nombre" class="text-danger"></span>
+</div>

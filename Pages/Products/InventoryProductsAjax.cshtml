@@ -1,0 +1,90 @@
+@page
+@model RosaMaríaBookstore.Pages.Products.InventoryProductsAjaxModel;
+@using RosaMaríaBookstore.Props;
+@{
+    Layout = null;
+    int size = Model.List.Count;
+    ProductsQuery product;
+    String image, style, text;
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (size == 0)
+{
+    <div class="col-md-12">
+        <div class="alert alert-info text-center font-weight-bold">
+            <h5>No hay registros</h5>
+        </div>
+    </div>
+    return;
+}
+
+
+@for (int i = 0; i < size; i++)
+{
+    product = Model.List.ElementAt(i);
+    if (product.Imagen != null)
+    {
+        image = "/images/products/" + @product.Imagen;
+    }
+    else
+    {
+        image = "/images/not-image.png";
+    };
+    if (product.Existencia == 0)
+    {
+        style = "float-right badge badge-danger";
+    }
+    else if (product.Existencia <= product.Stockminimo)
+    {
+        style = "float-right badge badge-warning";
+    }
+    else
+    {
+        style = "float-right badge badge-info";
+    }
+
+    if (product.Existencia > 0 && product.Existencia < 100)
+    {
+        text = "width: 110px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;";
+    }
+    else if (product.Existencia >= 100 && product.Existencia < 1000)
+    {
+        text = "width: 105px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;";
+    }
+    else if (product.Existencia >= 1000 && product.Existencia < 10000)
+    {
+        text = "width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;";
+    }
+    else if (product.Existencia >= 10000 && product.Existencia < 100000)
+    {
+        text = "width: 95px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;";
+    }
+    else
+    {
+        text = "width: 95px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;";
+    }
+    <div class="col-md-6 col-lg-3">
+        <div class="card d-block border border-radius" data-idproduct="@product.Id" data-name="@product.Nombre"
+            data-category="@product.Categoria" data-stock="@product.Existencia" data-image="@image">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <div class="float-left" style="@text">@product.Nombre </div> <span
+                        class="@style">@product.Existencia</span>
+                </h5>
+                <h6 class="card-subtitle text-muted">@product.Categoria</h6>
+            </div>
+            <img class="img-fluid image-height pointer" id="imageproduct" src="@image" alt="Imagen"
+                data-idproduct="@product.Id">
+            <div class="card-body p-0 m-0 d-flex align-items-end">
+                <p class="card-text"></p>
+            </div> <!-- end card-body-->
+            <div class="card-footer text-muted p-y m-0 pt-3">
+            </div>
+            <!--end card-footer --->
+        </div> <!-- end card-->
+    </div><!-- end col -->
+}

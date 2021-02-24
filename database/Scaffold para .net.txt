@@ -1,0 +1,35 @@
+En caso de que halla un versión de .net 3.1.1 en su pc tienen que actualizarla a la actual (3.1.1 la que esta ahorita) debido a que si se fijan en el nuget de 
+Pomelo la version es la 3.1.1 la que ocuparemos para mysql (el conector), de igual manera el Entity.Framework.Design de microsoft se instala automaticamente
+la version ultima (en este caso la 3.1.1 la que requerimos hay que instalarla) este paquete nos servira para poder generar los modelos mediante Entity Framework
+(entiendase que es una ORM DE MICROSOFT (biene funcionando como hibernate, el crea los modelos (en nuestro caso digo crea porque usaremos el modo DATABASEFIRST 
+DE EF) apartir de una db, por eso requerimos de design), EN CASO NUESTRO USAREMOS UNA VERSION PARA .NET CORE NO QUE TAMBIEN ESTA PARA LA PLATAFORMA .NET LA TRADICIONAL). 
+
+En diseño primero se modela la DB lo cual nosotros necesitamos generar los modelos a partir de una base existente, y es por eso que trabajaremos con el modo
+DATABASEFIRST (en tu caso zometa es bueno que hallas aprendido el modo CODEFIRST, te recomiendo que lo apriendas alex puedes ocuparlo algún día, quien sabe xd),
+DATABASEFIRST tiene dos formas, nosotros trabajaremos unicamente con la primera; que quiero decir con esto, podremos generar modelos apartir de nuestra db pero 
+tambien si queremos agregar un nuevo campo a una tabla y nos da hueva hacerlo en phpmyadmin entonces se lo agregamos al modelo y lo migramos a la db para que
+se agregue a la tabla que hacemos referencia con nuestro modelo.
+
+Y esto es todo, que creían que se un monton xdxdxd
+
+//comando para actualizar el dotnet-ef en caso de que les diga que tienen una version inferior a las que tiene instaladas (ya que si es así los modelos orientados a
+objetos no se generaran)
+dotnet tool update --global dotnet-ef --version 3.1.1
+
+//comando para instalar el paquete design
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.1.1
+
+//para instalar el nuget de pomelo, ya que este usaremos redundantemente
+dotnet add package Pomelo.EntityFrameworkCore.MySql --version 3.1.1
+
+//comando para que la belleza de EF nos generar nuestros modelos orientados a objeto(solo cambian el nombre de la db en caso de que no le pongan como les dije,
+ahí estoy apuntando a la base que les subi, que creo que son 8 tablas y asi le puse de name), en caso de que posean password en su xampp solo lo agregan ahi en 
+el campo pass correspondiente despues del igual 
+dotnet ef dbcontext scaffold "server=localhost;database=bookstore;username=root;password=" pomelo.entityframeworkcore.mysql -o Models
+
+//si se hacen ambios en la db con este comando actualizar las entidades
+dotnet ef dbcontext scaffold "server=localhost;database=bookstore;username=root;password=" pomelo.entityframeworkcore.mysql -o Models -f
+
+//para el tratado de JSON con ajax (permitira el tratado del mapeo de las clases en el framework)
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 3.1.1
+								Y eso es todo nos vemos en otro tutorial jajajaja

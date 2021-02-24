@@ -1,0 +1,55 @@
+@model RosaMaríaBookstore.Pages.RecentActivity.TimeLineModel;
+@using RosaMaríaBookstore.Props;
+@{
+    string fmtf = "dd/MM/yyyy",
+            fmth = "hh:mm:ss",
+            class1 = "",
+            class2 = "";
+    UserActions userActions;
+}
+@if (Model.UserActionsList.Count == 0)
+{
+    <div class="alert alert-info text-center font-weight-bold">
+        <h5>No se encontrarón registros</h5>
+    </div>
+    return;
+}
+<div class="timeline-show mb-3 text-center">
+    <h5 class="m-0 time-show-name">Ahora</h5>
+</div>
+@for (int i = 0; i < Model.UserActionsList.Count; i++)
+{
+    userActions = Model.UserActionsList[i];
+
+    if (i % 2 == 0)
+    {
+        class1 = "timeline-lg-item timeline-item-left";
+        class2 = "arrow-alt";
+    }
+    else
+    {
+        class1 = "timeline-lg-item";
+        class2 = "arrow";
+    }
+    <div class="@class1">
+        <div class="timeline-desk">
+            <div class="timeline-box">
+                <span class="@class2"></span>
+                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                <p class="mb-0">
+                    <img src="@userActions.Imagen" alt="image-user" class="avatar-xs rounded-circle mr-1">
+                    <span class="mt-0 mb-1 h4 font-16">@userActions.Empleado</span>
+                </p>
+                <p class="text-muted">
+                    <small>
+                        <span class="font-weight-bold">Fecha: </span> @userActions.Fechahora.ToString(fmtf) <span
+                            class="font-weight-bold">Hora: </span>
+                        @userActions.Fechahora.ToString(fmth)
+                    </small>
+                </p>
+                <p><span class="font-weight-bold">Descripción de la operación realizada: </span> @userActions.Descripcion
+                </p>
+            </div>
+        </div>
+    </div>
+}

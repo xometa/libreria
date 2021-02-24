@@ -1,0 +1,144 @@
+@model RosaMaríaBookstore.Pages.Queries.Employed.ShoppingsUserModel;
+@using RosaMaríaBookstore.Models;
+
+@{
+    int Length = Model.ShoppingsList.Count;
+    string image = "", id = "", head = "", nameClient = "";
+    //para el encabezado
+    decimal totalE = 0, priceE = 0, subTotalE = 0, totalFE = 0;
+    double ivaE = 0;
+    //para el detalle
+    decimal subTotal = 0;
+    Compra shopping;
+}
+
+<div id="filter-results" data-showRegisters="@Model.showRegisters" data-total="@Model.total"
+    data-current-page="@Model.currentPage" data-max="@Model.pageSize">
+</div>
+
+@if (Length <= 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info text-center font-weight-bold">
+                <h5>No hay registros</h5>
+            </div>
+        </div>
+    </div>
+}
+@for (int i = 0; i < Length; i++)
+{
+    shopping = Model.ShoppingsList[i];
+    id = "shopping" + i;
+    head = "heading" + i;
+    totalE = 0;
+    priceE = 0;
+    subTotalE = 0;
+    ivaE = 0;
+    //obteniendo el nombre del proveedor
+    nameClient = shopping.IdproveedorNavigation.Nombre + " / " +
+                shopping.IdproveedorNavigation.IdrepresentanteNavigation.Fullname();
+
+    //obteniendo el total de la venta para el encabezado
+    foreach (var p in shopping.Detallecompra)
+    {
+        priceE = p.Precio;
+        subTotalE = p.Cantidad * Convert.ToDecimal(priceE.ToString("0.00"));
+        totalE += subTotalE;
+    }
+    ivaE = Convert.ToDouble(totalE) * 0.13;
+    totalFE = totalE + Convert.ToDecimal(ivaE);
+    <div class="card mb-0">
+        <div class="card-header head-acordion-info pointer" id="@head">
+            <h5 class="m-0">
+                <div class="custom-accordion-title d-block py-1 collapsed" data-toggle="collapse" data-target="#@id"
+                    aria-expanded="false" aria-controls="@id">
+                    <div class="row font-weight-bold">
+                        <div class="col-lg-1">
+                            @shopping.Documento
+                        </div>
+                        <div class="col-lg-5">
+                            <i class="text-success uil-cart"></i> @nameClient
+                        </div>
+                        <div class="col-lg-2">Fecha: <span class="font-weight-normal">
+                                @shopping.Fecha.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="col-lg-2">Tipo: <span class="font-weight-normal"> @shopping.Tipo</span>
+                        </div>
+                        <div class="col-lg-2">Total: <span class="font-weight-normal"> $ @totalFE.ToString("0.00")</span>
+                        </div>
+                    </div>
+                </div>
+            </h5>
+        </div>
+
+        <div id="@id" class="collapse" aria-labelledby="@head" data-parent="#custom-accordion-one">
+            <div class="card-body">
+                <h4 class="text-lg-left text-muted font-weight-bold">Detalles de la compra</h4>
+                <div class="row">
+                    <div class="col-lg-12 pt-2">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-centered mb-0">
+                                <thead class="thead-light font-weight-bold">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var pr in shopping.Detallecompra)
+                                    {
+                                        subTotal = Convert.ToDecimal(pr.Precio) * pr.Cantidad;
+                                        if (pr.IdproductoNavigation.IdimagenNavigation != null)
+                                        {
+                                            image = "/images/products/" + pr.IdproductoNavigation.IdimagenNavigation.Nombre;
+                                        }
+                                        else
+                                        {
+                                            image = "/images/not-image.png";
+                                        }
+                                        <tr>
+                                            <td>
+                                                <img src="@image" alt="imagen" title="imagen" class="rounded mr-3"
+                                                    height="64" />
+                                                <p class="m-0 d-inline-block align-middle font-16">
+                                                    @pr.IdproductoNavigation.Nombre
+                                                </p>
+                                            </td>
+                                            <td> $ @pr.Precio.ToString("0.00") </td>
+                                            <td> @pr.Cantidad </td>
+                                            <td> $ @subTotal </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="no-top"></th>
+                                        <th class="no-top"></th>
+                                        <th class="no-top text-left">Sub Total</th>
+                                        <th class="no-top">$ @totalE</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="no-top"></th>
+                                        <th class="no-top"></th>
+                                        <th class="no-top text-left">IVA (13%)</th>
+                                        <th class="no-top">$ @ivaE.ToString("N2")</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="no-top"></th>
+                                        <th class="no-top"></th>
+                                        <th class="no-top text-left">Total de la compra
+                                        </th>
+                                        <th class="no-top">$ @totalFE.ToString("0.00")</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div> <!-- end table-responsive-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

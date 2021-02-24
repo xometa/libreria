@@ -1,0 +1,88 @@
+@model RosaMaríaBookstore.Pages.Providers.ProvidersModel;
+@{
+int idPerson=Model.Person.Id;
+int idProvider=Model.Provider.Id;
+}
+
+@if(idPerson!=0){
+<input class="form-control" asp-for="Person.Id" hidden>
+}
+@if(idProvider!=0){
+<input class="form-control" asp-for="Provider.Id" hidden>
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group px-3">
+    <div class="alert-info py-2 font-weight-bold px-2">
+        Datos del representante
+    </div>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Person.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-user-square"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Person.Nombre" class="form-control" placeholder="Nombre del representante">
+    </div>
+    <span asp-validation-for="Person.Nombre" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Person.Apellido" class="font-weight-bold">Apellido<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-user-square"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Person.Apellido" class="form-control" placeholder="Apellido del representante">
+    </div>
+    <span asp-validation-for="Person.Apellido" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Person.Dui" class="font-weight-bold">DUI</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-atm-card"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Person.Dui" class="form-control" placeholder="00000000-0" data-toggle="input-mask" data-mask-format="00000000-0">
+    </div>
+    <span asp-validation-for="Person.Dui" class="text-danger"></span>
+</div>
+
+<div class="px-3">
+    <div class="alert-info py-2 font-weight-bold px-2">
+        Datos del proveedor
+    </div>
+</div>
+<div id="provider-data" class="pt-2">
+    <div class="form-group px-3">
+        <label asp-for="Provider.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <span class="uil-building"></span>
+                </div>
+            </div>
+            <input type="text" asp-for="Provider.Nombre" class="form-control" placeholder="Nombre del proveedor">
+        </div>
+        <span asp-validation-for="Provider.Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group px-3">
+        <label asp-for="Provider.Direccion" class="font-weight-bold">Dirección<span
+                class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <span class="uil-location-point"></span>
+                </div>
+            </div>
+            <textarea type="text" asp-for="Provider.Direccion" class="form-control"
+                placeholder="Dirección del proveedor"></textarea>
+        </div>
+        <span asp-validation-for="Provider.Nombre" class="text-danger"></span>
+    </div>
+</div>

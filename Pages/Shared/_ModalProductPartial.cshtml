@@ -1,0 +1,122 @@
+@model RosaMaríaBookstore.Pages.Products.ProductsModel;
+@{
+    int id=Model.Producto.Id;
+    String image="/images/products/";
+}
+
+@if (id!=0)
+{
+    <input class="form-control" asp-for="Producto.Id" hidden>
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col-lg-7">
+        <div class="form-group px-3">
+            <label asp-for="Producto.Codigo" class="font-weight-bold">Código<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="uil-invoice"></span>
+                    </div>
+                </div>
+                <input type="text" asp-for="Producto.Codigo" class="form-control" placeholder="Código del producto">
+            </div>
+            <span asp-validation-for="Producto.Codigo" class="text-danger"></span>
+        </div>
+        <div class="form-group px-3">
+            <label asp-for="Producto.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="uil-archive"></span>
+                    </div>
+                </div>
+                <input type="text" asp-for="Producto.Nombre" class="form-control" placeholder="Nombre del producto">
+            </div>
+            <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
+        </div>
+        <div class="form-group px-3">
+            <label asp-for="Producto.Descripcion" class="font-weight-bold">Descripción</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="uil-comment"></span>
+                    </div>
+                </div>
+                <textarea type="text" asp-for="Producto.Descripcion" class="form-control" placeholder="Descripción del producto"></textarea>
+            </div>
+            <span asp-validation-for="Producto.Descripcion" class="text-danger"></span>
+        </div>
+        <div class="form-group px-3">
+            <label asp-for="Producto.Stockminimo" class="font-weight-bold">Stock mínimo</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="uil-box"></span>
+                    </div>
+                </div>
+                <input type="text" asp-for="Producto.Stockminimo" class="form-control" placeholder="Stock mínimo del producto">
+            </div>
+            <span asp-validation-for="Producto.Stockminimo" class="text-danger"></span>
+        </div>
+        <div class="form-group px-3">
+            <label asp-for="Producto.Idmarca" class="font-weight-bold">Marca</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="uil-pricetag-alt"></span>
+                    </div>
+                </div>
+                <select asp-for="Producto.Idmarca" class="custom-select form-control" required>
+                    <option value=" ">--- Seleccione una marca ---</option>
+                    @foreach(var m in Model.TrademarksList){
+                    <option value="@m.Id">@m.Nombre</option>
+                    }
+                </select>
+            </div>
+            <span asp-validation-for="Producto.Idmarca" class="text-danger"></span>
+        </div>
+        <div class="form-group px-3">
+            <label asp-for="Producto.Idcategoria" class="font-weight-bold">Categoría<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="uil-layer-group"></span>
+                    </div>
+                </div>
+                <select asp-for="Producto.Idcategoria" class="custom-select form-control" required>
+                    <option value=" ">--- Seleccione una categoría ---</option>
+                    @foreach(var c in Model.CategoriesList){
+                    <option value="@c.Id">@c.Nombre</option>
+                    }
+                </select>
+            </div>
+            <span asp-validation-for="Producto.Idcategoria" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="form-group">
+            <label asp-for="Producto.Archivo" class="font-weight-bold">Imagen</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" asp-for="Producto.Archivo" class="custom-file-input">
+                    <label class="custom-file-label">Buscar imagen</label>
+                </div>
+            </div>
+            <span asp-validation-for="Producto.Archivo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="font-weight-bold">Vista previa</label><br>
+            <div class="col text-center">
+                @if (Model.Producto.IdimagenNavigation!=null)
+                {
+                    image=image+Model.Producto.IdimagenNavigation.Nombre;
+                    <img src="@image" id="imageview" alt="image" class="img-fluid rounded" width="200" />
+                }else{
+                    <img src="/images/not-image.png" id="imageview" alt="image" class="img-fluid rounded" width="200" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

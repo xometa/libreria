@@ -1,0 +1,437 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/favicon.png">
+
+    <!-- third party css -->
+    @*<link href="~/assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />*@
+    <!-- third party css end -->
+
+    <!-- App css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="~/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+</head>
+<!--
+    oncontextmenu="return false;"
+    -->
+
+<body class="loading"
+    data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <!-- Begin page -->
+    <div class="wrapper">
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left-side-menu">
+
+            <!-- LOGO -->
+            <a asp-area="" asp-page="/Index" class="logo text-center logo-light">
+                <span class="logo-lg">
+                    <img src="~/images/proyect/1.png" class="img-logo" alt="" height="30">
+                </span>
+                <span class="logo-sm">
+                    <img src="~/images/proyect/1.png" class="img-logo" alt="" height="30">
+                </span>
+            </a>
+
+            <!-- LOGO -->
+            <a asp-area="" asp-page="/Index" class="logo text-center logo-dark">
+                <span class="logo-lg">
+                    <img src="~/images/proyect/1.png" class="img-logo" alt="" height="30">
+                </span>
+                <span class="logo-sm">
+                    <img src="~/images/proyect/1.png" class="img-logo" alt="" height="30">
+                </span>
+            </a>
+
+            <div class="h-100" id="left-side-menu-container" data-simplebar>
+
+                <!--- Sidemenu -->
+                <ul class="metismenu side-nav">
+
+                    <li class="side-nav-title side-nav-item">Navegación</li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Index" class="side-nav-link">
+                            <i class="uil-home-alt"></i>
+                            <span> Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-title side-nav-item">Operaciones</li>
+
+                    <li class="side-nav-item">
+                        <a href="javascript: void(0);" class="side-nav-link">
+                            <i class="uil-shopping-cart-alt"></i>
+                            <span> Ventas</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="side-nav-second-level" aria-expanded="false">
+                            <li>
+                                <a asp-area="" asp-page="/Sales/Sales">Nueva venta</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-page="/Sales/SalesList">Lista de ventas</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="javascript: void(0);" class="side-nav-link">
+                            <i class="uil-cart"></i>
+                            <span> Compras</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="side-nav-second-level" aria-expanded="false">
+                            <li>
+                                <a asp-area="" asp-page="/Shoppings/Shoppings">Nueva compra</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-page="/Shoppings/ShoppingsList">Lista de compras</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="javascript: void(0);" class="side-nav-link">
+                            <i class="uil-usd-square"></i>
+                            <span> Abonos</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="side-nav-second-level" aria-expanded="false">
+                            <li>
+                                <a asp-area="" asp-page="/Payments/Payments">Nuevo Abono</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="side-nav-title side-nav-item">Registros</li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Trademarks/Trademarks" class="side-nav-link">
+                            <i class="uil-pricetag-alt"></i>
+                            <span> Marcas</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Categories/Categories" class="side-nav-link">
+                            <i class="uil-layer-group"></i>
+                            <span> Categorías</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Products/Products" class="side-nav-link">
+                            <i class="uil-archive"></i>
+                            <span> Productos</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Clients/Clients" class="side-nav-link">
+                            <i class="uil-user-square"></i>
+                            <span> Clientes</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Providers/Providers" class="side-nav-link">
+                            <i class="uil-building"></i>
+                            <span> Proveedores</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-title side-nav-item">Acceso</li>
+
+                    <li class="side-nav-item">
+                        <a href="javascript: void(0);" class="side-nav-link">
+                            <i class="uil-users-alt "></i>
+                            <span> Personal</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="side-nav-second-level" aria-expanded="false">
+                            <li>
+                                <a asp-area="" asp-page="/Users/Positions">Cargos</a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-page="/Users/Employed">Empleado</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Users/Permissions" class="side-nav-link">
+                            <i class="uil-padlock"></i>
+                            <span> Permisos</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/RecentActivity/TimeLine" class="side-nav-link">
+                            <i class="uil-clock-ten"></i>
+                            <span> Bitácora</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a href="javascript: void(0);" class="side-nav-link">
+                            <i class="uil-database"></i>
+                            <span> Respaldo de datos</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="side-nav-second-level" aria-expanded="false">
+                            <li>
+                                <a href="#">Exportar información</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="side-nav-title side-nav-item">Consultas</li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Queries/Queries" class="side-nav-link">
+                            <i class="uil-weight"></i>
+                            <span> Listado de consultas</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-title side-nav-item">Reportes</li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/Reports/Reports" class="side-nav-link">
+                            <i class="uil-file-edit-alt"></i>
+                            <span> Listado de reportes</span>
+                        </a>
+                    </li>
+
+                    <li class="side-nav-item">
+                        <a asp-area="" asp-page="/About" class="side-nav-link">
+                            <i class="uil-comment-exclamation"></i>
+                            <span> Acerca de</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- End Sidebar -->
+
+                <div class="clearfix"></div>
+
+            </div>
+            <!-- Sidebar -left -->
+
+        </div>
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+            <div class="content">
+                <!-- Topbar Start -->
+                <div class="navbar-custom">
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="notification-list">
+                            <a class="nav-link right-bar-toggle" href="javascript: void(0);">
+                                <i class="dripicons-gear noti-icon"></i>
+                            </a>
+                        </li>
+                        @{
+                            string name = Context.Session.GetString("Name");
+                            string image = Context.Session.GetString("Image");
+                            string rol = Context.Session.GetString("Rol");
+                            var id = Context.Session.GetInt32("IdUser");
+                        }
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#"
+                                role="button" aria-haspopup="false" aria-expanded="false">
+                                <span class="account-user-avatar">
+                                    <img src="@image" alt="user-image" class="rounded-circle">
+                                </span>
+                                <span>
+                                    <span class="account-user-name">@name</span>
+                                    <span class="account-position">@rol</span>
+                                </span>
+                            </a>
+                            <div
+                                class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                                <!-- item-->
+                                <div class=" dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Bienvenido !</h6>
+                                </div>
+
+                                <!-- item-->
+                                <a asp-area="" asp-page="/Users/UserInformation" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-account-circle mr-1"></i>
+                                    <span>Mi cuenta</span>
+                                </a>
+
+                                <!-- item-->
+                                <form method="post" asp-page="/Login/Logout">
+                                    <button type="submit" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-logout mr-1"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <button class="button-menu-mobile open-left disable-btn">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </div>
+                <!-- end Topbar -->
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+                    <main role="main">
+                        @RenderBody()
+                    </main>
+                </div>
+                <!-- container -->
+
+            </div> <!-- content -->
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            2020 © UES - LIBRERÍA ROSA MARÍA
+                        </div>
+                        @*<div class="col-md-6">
+                            <div class="text-md-right footer-links d-none d-md-block">
+                            <a href="javascript: void(0);">Acerca de</a>
+                            </div>
+                            </div>*@
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+
+    </div>
+    <!-- END wrapper -->
+
+
+    <!-- Right Sidebar -->
+    <div class="right-bar">
+
+        <div class="rightbar-title">
+            <a href="javascript:void(0);" class="right-bar-toggle float-right">
+                <i class="dripicons-cross noti-icon"></i>
+            </a>
+            <h5 class="m-0">Configuraciones</h5>
+        </div>
+
+        <div class="rightbar-content h-100" data-simplebar>
+
+            <div class="p-3">
+                <div class="alert alert-warning" role="alert">
+                    <strong>Personalice </strong> la combinación de colores general, el menú de la barra lateral, etc.
+                </div>
+
+                <!-- Settings -->
+                <h5 class="mt-3">Esquema de colores</h5>
+                <hr class="mt-1" />
+
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="color-scheme-mode" value="light"
+                        id="light-mode-check" checked />
+                    <label class="custom-control-label" for="light-mode-check">Modo de luz</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="color-scheme-mode" value="dark"
+                        id="dark-mode-check" />
+                    <label class="custom-control-label" for="dark-mode-check">Modo oscuro</label>
+                </div>
+
+                <!-- Width -->
+                <h5 class="mt-4">Anchura</h5>
+                <hr class="mt-1" />
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="width" value="fluid" id="fluid-check"
+                        checked />
+                    <label class="custom-control-label" for="fluid-check">Completo</label>
+                </div>
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="width" value="boxed" id="boxed-check" />
+                    <label class="custom-control-label" for="boxed-check">En caja</label>
+                </div>
+
+                <!-- Left Sidebar-->
+                <h5 class="mt-4">Barra lateral izquierda</h5>
+                <hr class="mt-1" />
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="theme" value="default" id="default-check"
+                        checked />
+                    <label class="custom-control-label" for="default-check">Por defecto</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="theme" value="light" id="light-check" />
+                    <label class="custom-control-label" for="light-check">Ligero</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-3">
+                    <input type="radio" class="custom-control-input" name="theme" value="dark" id="dark-check" />
+                    <label class="custom-control-label" for="dark-check">Oscuro</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="compact" value="fixed" id="fixed-check"
+                        checked />
+                    <label class="custom-control-label" for="fixed-check">Fijo</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="compact" value="condensed"
+                        id="condensed-check" />
+                    <label class="custom-control-label" for="condensed-check">Condensado</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-1">
+                    <input type="radio" class="custom-control-input" name="compact" value="scrollable"
+                        id="scrollable-check" />
+                    <label class="custom-control-label" for="scrollable-check">Desplazable</label>
+                </div>
+
+                <button class="btn btn-primary btn-block mt-4" id="resetBtn">Restablecer por defecto</button>
+            </div> <!-- end padding-->
+
+        </div>
+    </div>
+
+    <div class="rightbar-overlay"></div>
+    <form method="POST"></form>
+    <!-- /Right-bar -->
+
+    <!-- default -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- bundle -->
+    <script src="~/assets/js/vendor.min.js"></script>
+    <script src="~/assets/js/app.min.js"></script>
+
+    <script src="~/js/query/query.js"></script>
+    <script src="~/js/staff/psidebar.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

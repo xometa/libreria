@@ -1,0 +1,111 @@
+@model RosaMaríaBookstore.Pages.Users.EmployedModel;
+@{
+    int idEmployed = Model.Empleado.Id;
+    int idPerson = Model.Persona.Id;
+    int idPhone = Model.Telefono.Id;
+    string phone = Model.Telefono.Telefono1;
+}
+
+@if (idEmployed > 0 && idPerson > 0)
+{
+    <input class="form-control" asp-for="Empleado.Id" hidden>
+    <input class="form-control" asp-for="Persona.Id" hidden>
+}
+@if (idPhone > 0 && (!String.IsNullOrEmpty(phone) || !String.IsNullOrWhiteSpace(phone)))
+{
+    <input class="form-control" asp-for="Telefono.Id" hidden>
+}
+<div class="form-group px-3">
+    <label asp-for="Persona.Nombre" class="font-weight-bold">Nombre<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-user-square"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Persona.Nombre" class="form-control" placeholder="Nombre del empleado">
+    </div>
+    <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Persona.Apellido" class="font-weight-bold">Apellido<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-user-square"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Persona.Apellido" class="form-control" placeholder="Apellido del empleado">
+    </div>
+    <span asp-validation-for="Persona.Apellido" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Persona.Dui" class="font-weight-bold">DUI</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-atm-card"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Persona.Dui" class="form-control" placeholder="00000000-0" data-toggle="input-mask" data-mask-format="00000000-0">
+    </div>
+    <span asp-validation-for="Persona.Dui" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Empleado.Sexo" class="font-weight-bold">Sexo<span class="text-danger">*</span></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-users-alt"></span>
+            </div>
+        </div>
+        <select asp-for="Empleado.Sexo" class="custom-select form-control" required>
+            <option value=" ">--- Seleccionar sexo---</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select>
+    </div>
+    <span asp-validation-for="Empleado.Sexo" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Empleado.Fechanacimiento" class="font-weight-bold">Fecha de nacimiento</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="mdi mdi-calendar-month"></span>
+            </div>
+        </div>
+        <input type="date" class="form-control" asp-for="Empleado.Fechanacimiento">
+    </div>
+    <span asp-validation-for="Empleado.Fechanacimiento" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label asp-for="Telefono.Telefono1" class="font-weight-bold">Teléfono</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-phone-pause"></span>
+            </div>
+        </div>
+        <input type="text" asp-for="Telefono.Telefono1" class="form-control" placeholder="0000-0000" data-toggle="input-mask" data-mask-format="0000-0000">
+    </div>
+    <span asp-validation-for="Telefono.Telefono1" class="text-danger"></span>
+</div>
+<div class="form-group px-3">
+    <label class="font-weight-bold">Cargo</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <span class="uil-clipboard-alt"></span>
+            </div>
+        </div>
+        <select class="custom-select form-control" asp-for="Empleado.Idcargo" required>
+            <option value=" ">--- Seleccionar cargo---</option>
+            @foreach (var position in Model.positionsList)
+            {
+                <option value="@position.Id">@position.Nombre</option>
+            }
+            </select>
+        </div>
+        <span asp-validation-for="Empleado.Idcargo" class="text-danger"></span>
+    </div>

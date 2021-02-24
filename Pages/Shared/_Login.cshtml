@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/favicon.png">
+
+    <!-- App css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+    <link href="~/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+
+</head>
+
+<body class="authentication-bg pb-0" data-layout-config='{"darkMode":false}'>
+
+    <div class="auth-fluid">
+        <!--Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="align-items-center d-flex h-100">
+                <div class="card-body">
+                    <!-- Logo -->
+                    <div class="auth-brand text-center text-lg-left">
+                        <a asp-area="" asp-page="/Login/Login" class="logo-dark">
+                            <span><img src="~/images/proyect/logo.png" alt="" height="18"></span>
+                        </a>
+                        <a  asp-area="" asp-page="/Login/Login" class="logo-light">
+                            <span><img src="~/images/proyect/logo.png" alt="" height="18"></span>
+                        </a>
+                    </div>
+                    <main role="main">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div> <!-- end .align-items-center.d-flex.h-100-->
+        </div>
+        <!-- end auth-fluid-form-box-->
+
+        <!-- Auth fluid right content -->
+        <div class="auth-fluid-right text-center">
+            <div class="auth-user-testimonial">
+                <h2 class="mb-3">Bienvenido</h2>
+                <p class="lead"><i class="mdi mdi-format-quote-open"></i>Librería Rosa María, siempre con los mejores productos<i class="mdi mdi-format-quote-close"></i>
+                </p>
+                <p>
+                    Universidad de El Salvador - 2020
+                </p>
+            </div> <!-- end auth-user-testimonial-->
+        </div>
+        <!-- end Auth fluid right content -->
+    </div>
+    <!-- end auth-fluid-->
+
+    <!-- bundle -->
+    <script src="~/assets/js/vendor.min.js"></script>
+    <script src="~/assets/js/app.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>
